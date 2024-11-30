@@ -62,7 +62,7 @@ The results from FUBAR can be visualized using built-in interactive tools, displ
 
 1. **Upload Data**:
 
-   - Provide an alignment file and a corresponding phylogenetic tree, ensuring correct formatting.
+   - Provide an alignment with a corresponding phylogenetic tree file, ensuring correct formatting.
    - Select the appropriate genetic code and configure any optional parameters based on your analysis needs.
 
 2. **Run Analysis**:
@@ -82,4 +82,3 @@ The results from FUBAR can be visualized using built-in interactive tools, displ
 ## References
 
 - [FUBAR Documentation](http://www.hyphy.org/methods/selection-methods/#fubar)
-- [Observable FUBAR Visualization](https://observablehq.com/@spond/fubar)
