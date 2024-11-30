@@ -1,33 +1,28 @@
 # aBSREL (Adaptive Branch-Site Random Effects Likelihood)
 
-aBSREL stands for **Adaptive Branch-Site Random Effects Likelihood**. It is a method for detecting episodic diversifying selection in sequence alignments and phylogenies. The method evaluates if the rates of evolution at specific branches in the phylogeny vary due to adaptive evolution while accounting for the variation in selection pressure across different branches and sites.
+aBSREL (**a**daptive **B**ranch-**S**ite **R**andom **E**ffects **L**ikelihood) is an improved version of the commonly-used "branch-site" models, which are used to test if positive selection has occurred on a proportion of branches. As such, aBSREL models both site-level and branch-level $\omega$ heterogeneity. aBSREL, however, does not test for selection at specific sites. Instead, aBSREL will test, for each branch (or branch of interest) in the phylogeny, whether a proportion of sites have evolved under positive selection.
 
----
+aBSREL differs from other branch-site model implementations by inferring the optimal number of $\omega$ classes for each branch. For example, the earlier HyPhy branch-site approach (BS-REL) assumed three $\omega$ rate classes for each branch and assigned each site, with some probability, to one of these classes. aBSREL, by contrast, acknowledges that different branches may feature more or less complex evolutionary patterns and hence may be better modeled by more or fewer $\omega$ classes. Specifically, aBSREL uses AIC<sub>c</sub> (small sample AIC) to infer the optimal number of $\omega$ rate classes for each branch.
+
+After aBSREL fits the full adaptive model, the Likelihood Ratio Test is performed at each branch and compares the full model to a null model where branches are not allowed to have rate classes of $\omega>1$.
+
+aBSREL can be run in two modes:
+
+- Test a specific hypothesis by _a priori_ selecting a set of "foreground" branches to test for positive selection.
+- Perform an exploratory analysis where all branches are tested for positive selection. In this scenario, p-values at each branch must be corrected for multiple testing (using the Holm-Bonferroni correction). Due to multiple testing, the exploratory approach _has much lower power_ compared to the other approach.
 
 ## Citation
 
-If you use aBSREL in your analysis, please cite:
-
-Kosakovsky Pond, S. L., Murrell, B., Weaver, S., & Temple iGEM / UCSD viral evolution group. (2015). "Less Is More: An Adaptive Branch-Site Random Effects Model for Efficient Detection of Episodic Diversifying Selection." _Molecular Biology and Evolution_, 32(5), 1342-1353. [https://doi.org/10.1093/molbev/msv032](https://doi.org/10.1093/molbev/msv032)
-
----
+**If you use aBSREL in your analysis, please cite the following:** [`Smith, MD et al. "Less is more: an adaptive branch-site random effects model for efficient detection of episodic diversifying selection." Mol. Biol. Evol. 32, 1342–1353 (2015).`](https://doi.org/10.1093/molbev/msv022)
 
 ## Input Parameters
 
 aBSREL requires several input parameters that can be categorized into required and optional fields.
 
-### Required Inputs
-
 - **Alignment File**: An in-frame codon alignment file (supported formats: `.fasta`, `.phy`, etc.)
-- **Phylogenetic Tree**: A phylogenetic tree file (with optional branch length annotations).
+- **Phylogenetic Tree**: A phylogenetic tree file (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
 - **Genetic Code**: The code that represents the genetic code to be used (default: "Universal").
 - **Branches to Test**: Specifies which branches in the phylogenetic tree to evaluate for selection.
-
-### Optional Inputs
-
-- **Synonymous Rate Variation**: Allow variation of synonymous substitution rates across sites (default: "No").
-- **Multiple Hits**: Handle multiple nucleotide substitutions. Options: `"None"`, `"Double"`, or `"Double+Triple"` (default: "None").
-- **Output Filename**: The name of the resulting JSON file (default is auto-generated).
 
 ---
 
@@ -44,21 +39,16 @@ The output of aBSREL is a JSON file containing:
 
 Each tested branch in the output will have:
 
-- **Omega (ω)**: The rate of nonsynonymous (dN) to synonymous (dS) substitutions.
-- **Likelihood Ratio Test (LRT)**: The test statistic for selection.
+- **Omega (ω) distribution**: The rate of nonsynonymous (dN) to synonymous (dS) substitutions per class.
 - **P-value**: Significance of selection, with lower values indicating stronger evidence.
-- **Total Branch Length**: Length of branches contributing to the selection signal.
-- **Selection Status**: Whether the branch is classified as exhibiting diversifying selection.
-
----
+- **Rates**: Number of ω rates used for the respective branch.
 
 ## Visualization
-
-The results from aBSREL can be visualized using various tools. The output JSON can be interpreted using interactive tools for better understanding.
 
 ### Features of Visualization Tools
 
 - **Summary Statistics**: Analyze the overall results and branches classified under different selection types.
+- **Omega (ω) plot**: Each circle represents an ω rate class, size reflecting the proportion of sites belonging to the respective class. The red vertical bar is the reference of ω=1.
 - **Graphical Display**: Visual representation of rates and significances across branches.
 - **Site-by-Site Analysis**: Detailed tables corresponding to each branch, including statistics.
 
@@ -70,13 +60,13 @@ Here’s a step-by-step guide on how to use aBSREL through its web interface:
 
 1. **Upload Data**:
 
-   - Navigate to the aBSREL tool page.
-   - Upload your alignment file and phylogenetic tree file.
+   - Navigate to the aBSREL page.
+   - Upload your alignment and phylogenetic tree file.
    - Select the appropriate genetic code if different from the default.
 
 2. **Parameter Configuration**:
 
-   - Specify branches to test and any optional parameters required for your analysis.
+   - Specify branches to test.
 
 3. **Run the Analysis**:
 
@@ -90,15 +80,3 @@ Here’s a step-by-step guide on how to use aBSREL through its web interface:
 
 5. **Export Results**:
    - Download the detailed results in JSON format for further processing or archiving.
-
----
-
-## References
-
-For more detailed exploration of aBSREL and its applications, consider the following resources:
-
-- [aBSREL Overview and Methods](https://hyphy.org/methods/selection-methods/#absrel)
-- Peer-reviewed articles related to adaptive evolutionary analysis methods
-- Database for phylogenetics and evolutionary genomics
-
----
