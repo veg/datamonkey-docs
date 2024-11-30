@@ -78,7 +78,3 @@ The results from FUBAR can be visualized using built-in interactive tools, displ
 4. **Export Results**:
    - Results can be downloaded in JSON format for further analysis or kept for record-keeping.
    - Use the available buttons to export visualizations as images.
-
-## References
-
-- [FUBAR Documentation](http://www.hyphy.org/methods/selection-methods/#fubar)
