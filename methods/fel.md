@@ -4,15 +4,11 @@ FEL (**F**ixed **E**ffects **L**ikelihood) uses a maximum-likelihood (ML) approa
 
 After optimizing branch lengths and nucleotide substitution parameters, FEL fits an MG94xREV model to each codon site to estimate site-specific nonsynonymous (dN) and synonymous (dS) substitution rates. A Likelihood Ratio Test (LRT) determines if dN is significantly greater than dS, indicating selection.
 
----
-
 ## Citation
 
 If you use FEL in your analysis, please cite:
 
 Kosakovsky Pond, S.L., & Frost, S.D.W. (2005). "Not So Different After All: A Comparison of Methods for Detecting Amino Acid Sites Under Selection." _Molecular Biology and Evolution_, 22(5), 1208–1222. [https://doi.org/10.1093/molbev/msi105](https://doi.org/10.1093/molbev/msi105)
-
----
 
 ## Input Parameters
 
@@ -30,8 +26,6 @@ FEL requires the following inputs:
 - **Synonymous Rate Variation**: Enable/disable synonymous rate variation (default: "Yes").
 - **Multiple Hits**: Specify how to handle multiple nucleotide substitutions. Options: `"None"`, `"Double"`, or `"Double+Triple"` (default: "None").
 - **Output File**: Automatically generated in JSON format.
-
----
 
 ## Outputs
 
@@ -53,8 +47,6 @@ Each codon in the output includes:
 - **Total Branch Length**: Length of branches used for inference.
 - **Selection Classification**: Sites categorized as diversifying, purifying, or neutral.
 
----
-
 ## Visualization
 
 Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an interactive exploration of results.
@@ -71,8 +63,6 @@ Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an int
   - A detailed table of codons with estimates, LRT scores, and p-values.
   - Phylogenetic tree view highlighting branches contributing to the analysis.
 
----
-
 ## Example Workflow
 
 1. **Upload Data**:
@@ -86,8 +76,6 @@ Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an int
    - Adjust the p-value threshold to explore sites under different selection categories.
 4. **Export Results**:
    - Download detailed JSON results for further analysis or archiving.
-
----
 
 ## References
 
