@@ -1,11 +1,85 @@
-# BUSTED
+# BUSTED 
 
-BUSTED (**B**ranch-**S**ite **U**nrestricted **S**tatistical **T**est for **E**pisodic **D**iversification) provides a gene-wide (_not site-specific_) test for positive selection by asking whether a gene has experienced positive selection at at least one site on at least one branch. When running BUSTED, users can either specify a set of foreground branches on which to test for positive selection (remaining branches are designated "background"), or users can test the entire phylogeny for positive selection. In the latter case, the entire tree is effectively treated as foreground, and the test for positive selection considers the entire phylogeny.
+BUSTED (**B**ranch-Site **U**nrestricted **S**tatistical **T**est for **E**pisodic **D**iversification) is a sophisticated method for detecting episodic diversifying selection across branches in a phylogenetic tree. Utilizing a random effects model, BUSTED evaluates gene-wide evidence of selection while accommodating for variations in synonymous substitution rates. The model tests for signatures of positive selection by examining the likelihood of substitution patterns, providing an insight into the evolutionary pressures that may have acted upon coding sequences.
 
-For each phylogenetic partition (foreground and background branch sites), BUSTED fits a codon model with three rate classes, constrained as $\omega_1 \leq \omega_2 \leq 1 \leq \omega_3$. As in other methods, BUSTED simultaneously estimates the proportion of sites per partition belonging to each $\omega$ class. This model, used as the alternative model in selection testing, is referred to as the _Unconstrained_ model. BUSTED then tests for positive selection by comparing this model fit to a null model where $\omega_3 = 1$ (i.e. disallowing positive selection) on the foreground branches. This null model is also referred to as the _Constrained_ model. If the null hypothesis is rejected, then there is evidence that at least one site has, at least some of the time, experienced positive selection on the foreground branches. Importantly, a significant result _does not_ mean that the gene evolved under positive selection along the entire foreground.
+---
 
-BUSTED additionally calculates "Evidence Ratios" (ERs) for each site. The ER gives the likelihood ratio (reported on a log-scale) that the alternative model was a better fit to the data compared to the null model. The ER for each site thus provides _descriptive information_ about whether a given site could have evolved under positive selection. The ERs _should not_ be interpreted as statistical evidence for positive selection at individual sites (instead, methods like [MEME](selection-methods/#meme), [FEL](selection-methods/#fel), or [FUBAR](selection-methods/#fubar) should be used for detecting selection at individual sites).
+## Citation
 
-For each site, two ERs are reported: the _Constrained Model_ ER and the _Optimized Null_ Model ER. The Constrained Model ER calculates the evidence ratio using model parameters inferred from the Constrained model. By contrast, the Optimized Null model ER re-optimizes parameters inferred using the Constrained model for the given site of interest. These optimized parameter values are then used to calculate the site's ER. Again, while these ERs may be helpful descriptors of selection in the data set, they do not provide statistically valid evidence for positive selection at a site.
+If you utilize the BUSTED method in your work, please cite:
 
-**If you use BUSTED in your analysis, please cite the following:** [`Murrell, B et al. "Gene-wide identification of episodic selection." Mol. Biol. Evol. 32, 1365–1371 (2015).`](https://doi.org/10.1093/molbev/msv035)
+Kosakovsky Pond, S.L., & Frost, S.D.W. (2015). "Gene-wide identification of episodic selection." *Molecular Biology and Evolution*, 32(5), 1365-1371. [https://doi.org/10.1093/molbev/msv029](https://doi.org/10.1093/molbev/msv029)
+
+---
+
+## Input Parameters
+
+### Required Inputs
+
+- **Alignment File**: An in-frame codon alignment file, supported formats include `.fasta`, `.phy`, etc.
+- **Phylogenetic Tree**: A file containing the phylogenetic tree structure (optionally annotated with branch lengths).
+- **Genetic Code**: The intended genetic code for the analysis (default: "Universal").
+
+### Optional Inputs
+
+- **Branches to Test**: Branches from the phylogeny that you wish to investigate for episodic selection (default: "All").
+- **Synonymous Rate Variation**: Option to include variations in synonymous substitution rates (options: "Yes", "No", or "Branch-site"; default: "Yes").
+- **Multiple Hits**: Support for handling multiple nucleotide substitutions (options: `"None"`, `"Double"`, or `"Double+Triple"`; default: "None").
+- **Error Protection**: To enhance robustness against errors in alignment, this can be enabled or disabled (default: "No").
+- **Output File**: The name of the resulting JSON output file (default is auto-generated).
+
+---
+
+## Outputs
+
+### Summary
+
+BUSTED produces a JSON file summarizing the analysis results, including key metrics and findings regarding selection pressures.
+
+### Key Output Elements
+
+- **Likelihood Ratio Test (LRT)**: Provides statistical evidence for the presence of episodic diversifying selection (p-value threshold typically set at 0.05).
+- **Evidence Ratios**: Ratio of the likelihoods for models with and without selection, informing the level of support for selection.
+- **Site-Specific Likelihoods**: Evaluations of likelihood at individual codon sites which are stored site-wise.
+- **Distribution Estimates**: Information on the distribution of omega ratios (dN/dS), indicating rates of nonsynonymous and synonymous substitutions.
+
+---
+
+## Visualization
+
+BUSTED integrates with Hyphy's visualization tools, allowing for:
+
+- **Tree Representation**: Visual portrayal of branches and associated statistical results.
+- **Distribution Plots**: Interactive distribution graphs illustrating quantity and type of substitutions across sites.
+- **Statistical Summaries**: Quick access to summary statistics, including evidence ratios and p-values.
+
+---
+
+## Example Workflow
+
+1. **Upload Data**:
+   - Select and upload your sequence alignment file and corresponding phylogenetic tree file.
+   - Choose the appropriate parameters for analysis (genetic code, branches to test).
+
+2. **Run Analysis**:
+   - Submit your data by selecting "Run Analysis". 
+   - Optionally, provide an email address to receive notifications upon completion.
+
+3. **Review Results**:
+   - Access the results in a structured format, including key statistics, plots, and visualizations.
+   - Utilize interactive features to explore different selection sites and their classifications.
+
+4. **Export Results**:
+   - Download the JSON results for archiving or further analyses with associated metadata.
+
+---
+
+## References 
+
+- For a more in-depth understanding of the BUSTED method and its context within evolutionary biology, consult the following resources:
+  - [BUSTED Documentation](http://hyphy.org/methods/selection-methods/#busted).
+  - Kosakovsky Pond, S.L., & Frost, S.D.W. (2015). "Gene-wide identification of episodic selection." *Molecular Biology and Evolution* [Link to Article](https://doi.org/10.1093/molbev/msv029).
+
+--- 
+
+This documentation provides an essential overview for users looking to apply the BUSTED method to their evolutionary analyses, ensuring clarity in understanding both the model's functionality and its implementation.
