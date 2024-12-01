@@ -83,8 +83,3 @@ Follow these steps to effectively use the NRM tool through the website:
    - Download the JSON results file for external analysis or archiving as needed.
 
 ---
-
-## References
-
-- [Molecular Biology and Evolution Article](https://doi.org/10.1093/molbev/msi105)
-- [Observable NRM Visualization Tool](https://observablehq.com)

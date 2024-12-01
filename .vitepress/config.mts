@@ -24,7 +24,7 @@ export default defineConfig({
           { text: "FUBAR", link: "/methods/fubar" },
           { text: "GARD", link: "/methods/gard" },
           { text: "MEME", link: "/methods/meme" },
-          { text: "MULTI-HIT", link: "/methods/multihit" },
+          { text: "MULTI-HIT", link: "/methods/multi_hit" },
           { text: "RELAX", link: "/methods/relax" },
           { text: "SLAC", link: "/methods/slac" },
         ],
