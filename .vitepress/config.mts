@@ -19,6 +19,7 @@ export default defineConfig({
           { text: "aBSREL", link: "/methods/absrel" },
           { text: "BGM", link: "/methods/bgm" },
           { text: "BUSTED", link: "/methods/busted" },
+          { text: "Contrast-FEL", link: "/methods/contrast_fel" },
           { text: "FEL", link: "/methods/fel" },
           { text: "FUBAR", link: "/methods/fubar" },
           { text: "GARD", link: "/methods/gard" },

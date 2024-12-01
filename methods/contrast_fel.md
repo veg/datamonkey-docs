@@ -6,14 +6,13 @@ Contrast-FEL (**Contrast Fixed Effects Likelihood**) is a method used to assess 
 
 If you use Contrast-FEL in your analysis, please cite:
 
-Kosakovsky Pond, S.L., & Weaver, S. (2021). "Contrast-FEL: A Method for Analyzing Evolutionary Selection at the Codon Level," _Molecular Biology and Evolution_, 38(3), 1184–1198. [https://doi.org/10.1093/molbev/msaa252](https://doi.org/10.1093/molbev/msaa252)
+[Kosakovsky Pond, Sergei L., et al. "Contrast-FEL—a test for differences in selective pressures at individual sites among clades and sets of branches." Molecular biology and evolution 38.3 (2021): 1184-1198.](https://doi.org/10.1093/molbev/msaa263)
 
 ## Input Parameters
 
 ### Required Inputs
 
 - **Alignment File**: An in-frame codon alignment file in a supported format (e.g., `.fasta`, `.phy`).
-- **Phylogenetic Tree**: A phylogenetic tree file (with optional branch length annotations).
 - **Branch Sets**: A specification of which branches to compare (e.g., "Source" and "Test" groups).
 
 ### Optional Inputs
@@ -56,11 +55,13 @@ Analyses from Contrast-FEL can be visualized using interactive tools available i
 ## Example Workflow
 
 1. **Upload Data**:
-   - Access the Contrast-FEL webpage and select the relevant alignment file and phylogenetic tree file.
+
+   - Access the Contrast-FEL webpage and select the relevant alignment with phylogenetic tree file.
    - Define the branch sets you want to compare.
+
 2. **Configure Analysis**:
 
-   - Choose optional settings such as genetic code, synonymous rate variation, and significance thresholds.
+   - Choose optional settings such as genetic code.
 
 3. **Run Analysis**:
 
@@ -74,8 +75,3 @@ Analyses from Contrast-FEL can be visualized using interactive tools available i
 
 5. **Export and Document**:
    - Results can be exported for further analysis or reporting purposes.
-
-## References
-
-- [Contrast-FEL Official Methodology](https://hyphy.org/methods/other/contrast-fel/)
-- Kosakovsky Pond, S.L., & Weaver, S. (2021). "Contrast-FEL: A Method for Analyzing Evolutionary Selection at the Codon Level," _Molecular Biology and Evolution_. [Link to Article](https://doi.org/10.1093/molbev/msaa252)
