@@ -18,7 +18,7 @@ FEL requires the following inputs:
 
 - **Genetic Code**: The genetic code to use (default: "Universal").
 - **Alignment File**: An in-frame codon alignment file (supported formats: `.fasta`, `.phy`, etc.).
-- **Phylogenetic Tree**: A phylogenetic tree file (with optional branch length annotations).
+- **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
 - **Branches to Test**
 
 ### Optional Inputs

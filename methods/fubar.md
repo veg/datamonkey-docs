@@ -22,7 +22,7 @@ FUBAR requires the following inputs:
 
 - **Genetic Code**: The genetic code to be used (default: "Universal").
 - **Alignment File**: An in-frame codon alignment file (supported formats: `.fasta`, `.nex`, etc.).
-- **Phylogenetic Tree**: A phylogenetic tree file (with optional branch length annotations).
+- **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
 
 ### Optional Inputs
 

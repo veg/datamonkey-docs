@@ -24,7 +24,7 @@ If you use the RELAX method in your analysis, please cite:
 
 - **Genetic Code**: Specify the genetic code to use for the analysis (default: "Universal").
 - **Alignment File**: Provide an in-frame codon alignment file (supported formats: `.fasta`, `.phy`, etc.).
-- **Phylogenetic Tree**: Input a phylogenetic tree annotated with branch lengths (if available) by appending to end of FASTA file or embedding within NEXUS file.
+- **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
 - **Test Branches**: Designate branches to be considered as 'Test'.
 - **Reference Branches**: Specify the branches to be treated as 'Reference'.
 
