@@ -3,6 +3,34 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Datamonkey",
   description: "Documentation",
+  head: [
+    [
+      "script",
+      {},
+      `
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\$begin:math:text$', '\\$end:math:text$']],
+            displayMath: [['$$', '$$'], ['\$begin:math:display$', '\\$end:math:display$']]
+          }
+        };
+      `,
+    ],
+    [
+      "script",
+      {
+        type: "text/javascript",
+        src: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js",
+      },
+    ],
+  ],
+  css: {
+    preprocessorOptions: {
+      css: {
+        additionalData: `@import 'katex/dist/katex.min.css';`,
+      },
+    },
+  },
   themeConfig: {
     sidebar: [
       {
