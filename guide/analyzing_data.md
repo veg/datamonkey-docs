@@ -2,49 +2,81 @@
 
 ## Selecting a Nucleotide Model
 
-Complete model selection procedure details can be found in this [MBE paper](http://mbe.oxfordjournals.org/cgi/content/short/22/5/1208).
-
-### General Advice
-
-We recommend that you run a model selection procedure, which sifts all 203 possible time-reversible models through a hierarchical testing procedure combining nested LRT tests with AIC selection to pick a single "best-fitting" rate matrix. Model selection is processed on a remote cluster and should take no more than a few minutes to complete.
-
-To allow the most general model of nucleotide substitution, select the General Reversible Model (REV), since it does not add much to the overall processing time. However, if your data set is small, it may not be possible to accurately estimate nucleotide substitution bias rates, and HKY85 might not be a bad choice. You can also try several different models and see if the location of inferred sites changes depending on the nucleotide model (it rarely does, unless the model is very wrong).
-
----
+Most methods will perform a global MG94xREV fit to optimize branch length and
+nucleotide substitution parameters before proceeding to hypothesis testing.
+Several methods (FEL, FUBAR, and MEME) additionally pre-fit a GTR nucleotide
+model to the data, using the estimated parameters as starting values for the
+global MG94xREV fit, as a computational speed-up. Resulting branch length and
+nucleotide substitution parameters are subsequently used as initial parameter
+values during model fitting for hypothesis testing.
 
 # Handling Ambiguities
 
-For more details see [MBE paper](http://mbe.oxfordjournals.org/cgi/content/short/22/5/1208).
+When analyzing sequence data, ambiguous nucleotides (e.g., `N`, `R`, `Y`) can affect the accuracy of substitution rate calculations. This section explains the different strategies for handling ambiguities in your data. For more details, see the MBE paper.
 
-#### Averaged (default)
+## Methods for Handling Ambiguities
 
-All possible resolutions of an ambiguous character contribute, in a weighted fashion, to the computation of EN, ES, NN and NS (see [methods paper](../paper.pdf)). Characters without any information (all gaps or all missing) are NOT counted though, to avoid artificially high dN and dS estimates.
+### Averaged (Default)
 
-#### Resolved
+In the Averaged method, all possible resolutions of an ambiguous character contribute, in a weighted fashion, to the computation of Expected Nonsynonymous (EN), Expected Synonymous (ES), Observed Nonsynonymous (NN), and Observed Synonymous (NS) substitutions (see the methods paper for details).
 
-The most likely resolution *for the given site* is used in the computation of EN, ES, NN and NS. Ties are broken randomly.
+- **Weights**: Each possible resolution is weighted according to the relative frequency of that codon in the entire dataset.
+- **Exclusion of Non-Informative Characters**: Characters that provide no information (e.g., all gaps or all missing data) are excluded to avoid artificially inflating dN and dS estimates.
 
-#### Skip
+### Resolved
 
-(Details not provided)
+In the Resolved method, only the most likely resolution for the given site is used in the computations.
 
-#### GapMM
+- **Determining the Most Likely Resolution**: Based solely on the data at that specific site, the most frequent codon is selected.
+- **Ties**: If multiple codons are equally frequent, one is chosen at random.
 
-(Details not provided)
+### Skip
+
+In the Skip method, any site containing an ambiguous character is entirely excluded from the computation of substitution rates.
+
+- **Effect**: This approach ensures that only fully unambiguous sites contribute to the analysis.
+
+### GapMM
+
+The GapMM method treats gaps (`-`) in a specific way when matching sequences.
+
+- **Gap Handling**: A gap matched with any character other than another gap is considered as matching an `N` (which represents any nucleotide).
+- **Purpose**: This method acknowledges that gaps can represent unknown nucleotides and adjusts the calculations to account for this uncertainty.
 
 ## Example
 
-Consider the site: 
-```
-ACA ACG ACG ACR
-```
+Consider the following site in your sequence alignment:
 
-For the resolved option, only the most frequent resolution *based on the data in the site only* will be considered. In this case, the resolution is 'ACG'.
+`ACA ACG ACG ACR`
 
-For the averaged option, all four possible resolutions ('ACA' and 'ACG') will be considered. The weight factor for each resolution is determined by the relative frequency of that codon to all possible resolutions. If f(xyz) denotes the frequency of codon xyz in the entire data file, then the contribution of ACA will be f(ACA)/(f(ACA)+f(ACG)) and of 'ACG': f(ACG)/(f(ACA)+f(ACG)).
+Here, `ACR` is ambiguous because `R` can be either `A` or `G`, representing both `ACA` and `ACG`.
 
----
+### Using the Resolved Method
+
+- **Most Frequent Codon**: `ACG` appears most frequently at this site.
+- **Resolution**: The ambiguous codon `ACR` is resolved to `ACG`.
+- **Calculation**: Only `ACG` is used for EN, ES, NN, and NS computations at this site.
+
+### Using the Averaged Method
+
+- **Possible Resolutions**: `ACR` can be `ACA` or `ACG`.
+- **Weight Factors**:
+  - **Calculate Frequencies**: Determine `f(ACA)` and `f(ACG)`, the frequencies of `ACA` and `ACG` in the entire dataset.
+  - **Weights**:
+    - Weight for `ACA` = `f(ACA)` / (`f(ACA)` + `f(ACG)`)
+    - Weight for `ACG` = `f(ACG)` / (`f(ACA)` + `f(ACG)`)
+- **Calculation**: Both `ACA` and `ACG` contribute to the computations, each weighted appropriately.
+
+### Using the Skip Method
+
+- **Action**: The entire site is excluded from all computations because it contains an ambiguous codon (`ACR`).
+
+### Using the GapMM Method
+
+- **Not Applicable in This Example**: Since there are no gaps in this site, the GapMM method does not alter the computations here.
+- **General Behavior**: If gaps were present, they would be treated as `N`s when paired with any character other than another gap.
 
 # Choosing Significance Levels
 
-For more details see [MBE paper](http://mbe.oxfordjournals.org/cgi/content/short/22/5/1208).
+For more details see [MBE
+paper](http://mbe.oxfordjournals.org/cgi/content/short/22/5/1208).
