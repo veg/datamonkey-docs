@@ -2,183 +2,122 @@
 
 ## General Remarks
 
-To perform a selection analysis, datamonkey.org needs a multiple alignment of at least three homologous coding nucleotide sequences. Codon based methods for estimating dN and dS can be applied to any sequence alignment, but there are several considerations to keep in mind:
+To perform a selection analysis, **datamonkey.org** requires a multiple alignment of at least three homologous coding nucleotide sequences. While codon-based methods for estimating dN (nonsynonymous substitutions per nonsynonymous site) and dS (synonymous substitutions per synonymous site) can be applied to any sequence alignment, several considerations should be kept in mind:
 
-Ideally, the alignment should represent a single gene, or protein product, sampled over multiple taxa (e.g. mammalian interferon genes), or a diverse population sample (e.g. Influenza A viruses infecting different individuals). Because comparative methods estimate relative rates of synonymous and non-synonymous substitution, substantial sequence diversity is needed for reliable inference. 
+### Sequence Diversity
 
-For example, when Suzuki and Nei applied a REL-type method to a very low divergence (1 or 2 substitutions per sequence along a star phylogeny) sample of the Human T-lymphotropic virus (HTLV), they found that the method performed poorly. Yang and colleagues have suggested that the total length of the phylogenetic tree should be at least one expected substitution per codon site, but it is impossible to give a generally valid range for desirable sequence divergence. 
+- **Ideal Alignment**: Should represent a single gene or protein product sampled across multiple taxa (e.g., mammalian interferon genes) or a diverse population sample (e.g., Influenza A viruses infecting different individuals).
+- **Substantial Diversity Required**: Comparative methods estimate relative rates of synonymous and nonsynonymous substitution.
+  - Low-divergence samples (e.g., Human T-lymphotropic virus with only 1–2 substitutions per sequence) perform poorly with REL-type methods.
+  - The total length of the phylogenetic tree should ideally be at least one expected substitution per codon site, though this varies.
 
-However, sequences that are too divergent could lead to saturation, i.e., our inability to reliably infer branch lengths and substitution parameters. The number of sequences in the alignment is important: too few sequences will contain too little information for meaningful inference, while too many may take too long to run. 
+### Sequence Divergence
 
-At the time of this writing, Datamonkey permits up to 150 sequences for SLAC analyses, 100 for FEL/IFEL analyses, 40 for REL and PARRIS, and 25 for GA-Branch. As a rule of thumb, at least 10 sequences are needed to detect selection at a single site (SLAC/FEL/IFEL/REL) with any degree of reliability, while as few as 4 may be sufficient for alignment-wide inference (PARRIS/GA-Branch). The median number of sequences in an alignment submitted to Datamonkey is 19. 
+- **Too Divergent**: Saturation can occur, making it difficult to infer branch lengths and substitution parameters.
 
-Comparative methods are ill-suited to study certain kinds of selection. For example, they should not be applied to the detection of selective sweeps (rapid replacement of one allele with a more fit one, resulting in a homogeneous population), unless sequences sampled prior to and following the selective sweep are included in the sample. A number of publications have dealt with this issue extensively (e.g., Selection using HyPhy), and we refer an interested reader to one of these works for further insight.
+### Number of Sequences
 
-It is a good practice to visually inspect your data to make sure that the sequences are aligned correctly. Of course, one can never be sure that an alignment is objectively correct, but gross misalignments (e.g., sequences that are out of frame) are easy to spot with software that provides a graphical visualization of the alignment, such as HyPhy, Se-Al, or BioEdit. Datamonkey uses the HyPhy package as its processing engine, and if an alignment does not open in HyPhy on your machine (using the File:Open:Open Data File command), then it will not be properly read by Datamonkey.
+- **Too Few**: Insufficient information for meaningful inference.
+- **Too Many**: Can be computationally expensive.
+- **Datamonkey Limits**:
+  - Default up to 32000 sites.
+  - Default up to 5000 sequences.
+    - aBSREL : up to 1000 sequences.
+    - BGM : up to 1000 sequences.
+    - Contrast-FEL : up to 2000 sequences.
+    - FUBAR : up to 10000 sequences.
+    - GARD : up to 1000 sequences.
+    - RELAX : up to 1000 sequences.
+    - BUSTED : up to 1000 sequences.
+- **Rule of Thumb**:
+  - At least 10 sequences for reliable single-site detection.
+  - As few as 4 sequences for alignment-wide inference.
 
-You should verify that the alignment is in frame, i.e., that it does not contain stop codons, including premature stop codons (indicative of a frame shift, e.g., due to misalignment, or a non-functional coding sequence) and the terminal stop codon. Your alignment should exclude any non-coding region of the nucleotide sequence, such as introns or promoter regions, for which existing models of codon substitution would not apply. When coding nucleotide sequences are aligned directly, frameshifting (i.e., not in multiples of 3) gaps may be inserted, since the alignment program often does not take the coding nature of the sequence into account. Therefore, it is generally a good idea to align translated protein sequences and then map them back onto constituent nucleotides. Datamonkey will perform a number of checks when it receives coding sequences and report all problems it encounters.
+### Type of Selection
 
-If the alignment contains identical sequences, Datamonkey will discard all but one copy before proceeding. This is done to speed up the analyses, because identical sequences do not contribute any information to the likelihood inference procedure (except via base frequencies), but the computational complexity of phylogenetic analyses grows with the number of sequences.
+- Comparative methods are unsuitable for studying selective sweeps unless pre- and post-sweep sequences are included.
 
-Finally, Datamonkey may rename some of the sequences to conform to HyPhy naming conventions for technical reasons (all sequence names must be valid identifiers, e.g., they cannot contain spaces). This is done automatically and has no effect on the subsequent analyses.
+### Alignment Quality
+
+- **Inspect Alignment**: Use [graphical tools](https://en.wikipedia.org/wiki/List_of_alignment_visualization_software) to ensure correctness.
+- **Reading Frames**: Verify the alignment is in-frame without stop codons or non-coding regions.
+- **Alignment Method**: Align protein sequences and map them back to nucleotides to avoid frameshifting gaps.
+- **Data Checks**:
+  - Datamonkey performs checks on received coding sequences and reports issues like duplicates or nonstandard characters.
 
 ## Common Issues
 
-### Non-text files
-Datamonkey expects sequence alignments to be uploaded as text files. Any other format (Word, RTF, PDF) will not be recognized and must be converted into plain text prior to submission.
+### Non-Text Files
 
-### Nonstandard characters in the alignment
-For instance, BioEdit may use the tilde ('~') character to denote a gap. The dot ('.') character is sometimes used as "match the first sequence" character and sometimes as the gap character. Datamonkey will accept [IUPAC nucleotide characters](http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html#300) (ACGT/U and ambiguity characters) and '?', 'X', 'N' or '-' for gap or missing data (Datamonkey is not case sensitive). All other characters in sequence data will be skipped and could result in frame shifts.
+- **Requirement**: Alignments must be text files (e.g., NEXUS, PHYLIP, FASTA). Formats like Word or PDF must be converted to plain text.
 
-### Uploading an amino-acid alignment
-Datamonkey employs codon models which require the knowledge of silent substitutions, lost upon translation to amino acids.
+### Nonstandard Characters
 
-### Termination codons
-Datamonkey will reject any alignments that contains stop codons, even if the stop codon is at the end of the sequence (i.e., is a proper termination codon). Please strip all stop codons out of the alignment prior to uploading it (the HyPhy standard analysis `Data File Tools:CleanStopCodons.bf` can do this by replacing all stop codons with indels).
+- Acceptable characters:
+  - Nucleotides: A, C, G, T/U, ambiguity characters.
+  - Gap/missing data: `?`, `X`, `N`, `-`.
+- Other characters may result in frameshifts.
 
-### Alignments that are too gappy
-If an alignment contains more than 50% of indels, it may not be properly processed (e.g., it could be read as a protein alignment, depending on the alignment format).
+### Amino Acid Alignments
 
-### Alignments that are too large
-If your alignment exceeds the size currently allowed by Datamonkey, consider running your analysis locally in HyPhy. A detailed discussion of how HyPhy can be used for that purpose can be found in [Selection using HyPhy](http://www.hyphy.org/pubs/hyphybook2007.pdf).
+- Datamonkey uses codon models requiring silent substitutions. Amino acid alignments are unsuitable.
 
-### Incorrect genetic code
-If the genetic code is misspecified (e.g., the mitochondrial code is applied to nuclear sequences), valid alignments may fail to upload and if they do, then the results may be compromised (because codons are mistranslated). Make sure the correct genetic code is selected on the data upload page.
+### Termination Codons
 
----
+- Alignments with stop codons (even at the end) are rejected. Use HyPhy to clean stop codons.
 
-# Genetic Codes
+### Alignments That Are Too Gappy
 
-## Universal Genetic Code
+- More than 50% indels may cause processing issues.
 
-| Amino acid | Codons                   |
-|------------|--------------------------|
-| Phe        | TTC, TTT                 |
-| Leu        | CTA, CTC, CTG, CTT, TTA, TTG |
-| Ile        | ATA, ATC, ATT           |
-| Met        | ATG                      |
-| Val        | GTA, GTC, GTG, GTT      |
-| Ser        | AGC, AGT, TCA, TCC, TCG, TCT |
-| Pro        | CCA, CCC, CCG, CCT      |
-| Thr        | ACA, ACC, ACG, ACT      |
-| Ala        | GCA, GCC, GCG, GCT      |
-| Tyr        | TAC, TAT                 |
-| His        | CAC, CAT                 |
-| Gln        | CAA, CAG                 |
-| Asn        | AAC, AAT                 |
-| Lys        | AAA, AAG                 |
-| Asp        | GAC, GAT                 |
-| Glu        | GAA, GAG                 |
-| Cys        | TGC, TGT                 |
-| Trp        | TGG                      |
-| Arg        | AGA, AGG, CGA, CGC, CGG, CGT |
-| Gly        | GGA, GGC, GGG, GGT      |
-| Stop       | TAA, TAG, TGA           |
+### Alignments That Are Too Large
 
-Other genetic codes are defined in terms of differences with the Universal code.
+- Exceeding size limits requires running locally with HyPhy.
 
-## Vertebrate mtDNA
+### Incorrect Genetic Code
 
-| Codon | New translation |
-|-------|-----------------|
-| AGA   | Stop            |
-| AGG   | Stop            |
-| ATA   | Met             |
-| TGA   | Trp             |
+- Using the wrong genetic code can result in alignment failures or compromised results.
 
-## Yeast mtDNA
+## Genetic Codes
 
-| Codon | New translation |
-|-------|-----------------|
-| ATA   | Met             |
-| CTA   | Thr             |
-| CTC   | Thr             |
-| CTG   | Thr             |
-| CTT   | Thr             |
-| TGA   | Trp             |
+### Universal Genetic Code
 
-## Mold, Protozoan and Coelenterate mtDNA
+| Amino Acid | Codons                       |
+| ---------- | ---------------------------- |
+| Phe        | TTT, TTC                     |
+| Leu        | TTA, TTG, CTT, CTC, CTA, CTG |
+| Ile        | ATT, ATC, ATA                |
+| Met        | ATG                          |
+| Val        | GTT, GTC, GTA, GTG           |
+| Ser        | TCT, TCC, TCA, TCG, AGT, AGC |
+| Pro        | CCT, CCC, CCA, CCG           |
+| Thr        | ACT, ACC, ACA, ACG           |
+| Ala        | GCT, GCC, GCA, GCG           |
+| Tyr        | TAT, TAC                     |
+| Stop       | TAA, TAG, TGA                |
+| His        | CAT, CAC                     |
+| Gln        | CAA, CAG                     |
+| Asn        | AAT, AAC                     |
+| Lys        | AAA, AAG                     |
+| Asp        | GAT, GAC                     |
+| Glu        | GAA, GAG                     |
+| Cys        | TGT, TGC                     |
+| Trp        | TGG                          |
+| Arg        | CGT, CGC, CGA, CGG, AGA, AGG |
+| Gly        | GGT, GGC, GGA, GGG           |
 
-| Codon | New translation |
-|-------|-----------------|
-| TGA   | Trp             |
+### Alternative Genetic Codes
 
-## Invertebrate mtDNA
+- For additional codes (e.g., mitochondrial, yeast), refer to HyPhy documentation.
 
-| Codon | New translation |
-|-------|-----------------|
-| AGA   | Ser             |
-| AGG   | Ser             |
-| ATA   | Met             |
-| TGA   | Trp             |
+## Data Formats
 
-## Ciliate Nuclear Code
+### Supported Formats
 
-| Codon | New translation |
-|-------|-----------------|
-| TAA   | Gln             |
-| TAG   | Gln             |
+- **NEXUS**: Supports `DATA`, `CHARACTERS`, `TAXA`, `ASSUMPTIONS`, and `TREES` blocks.
+- **PHYLIP**: Sequential and interleaved formats.
+- **FASTA**:
+  - Sequential: Taxa names preceded by `>` or `#`.
+  - Interleaved: List of taxa names followed by sequence blocks.
 
-## Echinoderm mtDNA
-
-| Codon | New translation |
-|-------|-----------------|
-| AAA   | Asn             |
-| AGA   | Ser             |
-| AGG   | Ser             |
-| TGA   | Trp             |
-
-## Euplotid mtDNA
-
-| Codon | New translation |
-|-------|-----------------|
-| TGA   | Cys             |
-
-## Alternative Yeast Nuclear
-
-| Codon | New translation |
-|-------|-----------------|
-| CTG   | Ser             |
-
-## Ascidian mtDNA
-
-| Codon | New translation |
-|-------|-----------------|
-| AGA   | Gly             |
-| AGG   | Gly             |
-| AGG   | Met             |
-| TGA   | Trp             |
-
-## Flatworm mtDNA
-
-| Codon | New translation |
-|-------|-----------------|
-| AAA   | Asn             |
-| AGA   | Ser             |
-| AGG   | Ser             |
-| TAA   | Tyr             |
-| TGA   | Trp             |
-
-## Blepharisma Nuclear
-
-| Codon | New translation |
-|-------|-----------------|
-| TAG   | Gln             |
-
----
-
-# Data Formats
-
-Datamonkey automatically recognizes five aligned sequence data formats and also autodetects whether the data is nucleotide (codon) or amino acid.
-
-### NEXUS
-The following NEXUS blocks are supported: `DATA`, `CHARACTERS`, `TAXA`, `ASSUMPTIONS` (for data partitioning), and `TREES`.
-
-### PHYLIP
-PHYLIP option characters in the first line are ignored for both sequential and interleaved formats.
-
-### FASTA
-- **Sequential:** Taxa names are preceded by `>` (or `#`), and complete sequence data follow the name of the taxon.
-- **Interleaved:** List of taxa names preceded by `>` (or `#_ `), and blocks of sequence data follow in the same order as the names of the taxa.
-
-For examples of each format, please visit the [hyphy wiki page](http://hyphy.org/w/index.php/DATA_FILE_PRINT_FORMAT).
+Visit the [HyPhy wiki](https://github.com/veg/hyphy) for examples and more information.
