@@ -64,7 +64,7 @@ If you use BUSTED-E in your analysis, please cite the following:
 ### Required Inputs
 
 - **Alignment File**: An in-frame codon alignment file, supported formats include `.fasta`, `.phy`, etc.
-- **Phylogenetic Tree**: A file containing the phylogenetic tree structure (optionally annotated with branch lengths).
+- **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
 - **Genetic Code**: The intended genetic code for the analysis (default: "Universal").
 
 ### Optional Inputs

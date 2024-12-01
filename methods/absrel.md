@@ -20,11 +20,9 @@ aBSREL can be run in two modes:
 aBSREL requires several input parameters that can be categorized into required and optional fields.
 
 - **Alignment File**: An in-frame codon alignment file (supported formats: `.fasta`, `.phy`, etc.)
-- **Phylogenetic Tree**: A phylogenetic tree file (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
+- **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
 - **Genetic Code**: The code that represents the genetic code to be used (default: "Universal").
 - **Branches to Test**: Specifies which branches in the phylogenetic tree to evaluate for selection.
-
----
 
 ## Outputs
 
@@ -51,8 +49,6 @@ Each tested branch in the output will have:
 - **Omega (ω) plot**: Each circle represents an ω rate class, size reflecting the proportion of sites belonging to the respective class. The red vertical bar is the reference of ω=1.
 - **Graphical Display**: Visual representation of rates and significances across branches.
 - **Site-by-Site Analysis**: Detailed tables corresponding to each branch, including statistics.
-
----
 
 ## Example Workflow
 
