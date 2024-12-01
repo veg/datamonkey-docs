@@ -3,11 +3,11 @@ title: Datamonkey
 description: Datamonkey Documentation
 ---
 
-# Welcome to Datamonkey Documentation
+# Datamonkey
 
 ## Introduction
 
-Welcome to the Datamonkey Documentation! Learn more about using Datamonkey for your data analysis needs.
+Learn more about using Datamonkey for your data analysis needs.
 
 <iframe 
   width="560" 
