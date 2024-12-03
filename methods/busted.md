@@ -134,7 +134,7 @@ BUSTED produces a JSON file summarizing the analysis results.
 
 - Differences can arise due to the way each method calculates selection. BUSTED combines data from all branches in the test, while aBSREL evaluates individual branches. A small number of sequences or branches can significantly impact results.
 
-### 6. **What should I do if the BUSTED output mentions “stop codons” or "nucleotides are out of frame"?**
+### 6. **What should I do if Datamonkey mentions “stop codons” or "nucleotides are out of frame"?**
 
 - Ensure that your sequence alignment does not have stop codons in non-terminal sequences. Check the alignment to ensure it meets requirements for codon alignment. Remove any stop codons before performing selection analysis.
 
