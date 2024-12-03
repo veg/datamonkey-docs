@@ -111,7 +111,7 @@ BUSTED produces a JSON file summarizing the analysis results.
 4. **Export Results**:
    - Download the JSON results for archiving or further analyses with associated metadata.
 
-## FAQs on Running BUSTED and Other Analysis Methods in HyPhy
+## FAQs
 
 ### 1. **When should I use BUSTED-S over the original BUSTED method?**
 
