@@ -77,3 +77,36 @@ Analyses from Contrast-FEL can be visualized using interactive tools available i
 
 5. **Export and Document**:
    - Results can be exported for further analysis or reporting purposes.
+
+## FAQ
+
+### 1. How should I choose test and reference branches when running Contrast-FEL?
+
+The selection of test and reference branches must align with your biological hypothesis. Here are some tips:
+
+- For comparing multiple groups, you can specify multiple branch sets, which generates all pairwise tests.
+- Utilize built-in sets like "Internal", "Leaves", and "Unlabeled branches" to focus your analysis on specific parts of your tree.
+- For specific comparisons, use annotations in your input tree or selection to ensure you're testing the desired taxa.
+
+### 2. Why might I see significant differences in dN/dS ratios but no evidence of selection?
+
+Significant differences in dN/dS ratios can occur without evidence of
+directional selection if the sample sizes for your groups are too small, which
+leads to imprecise estimates of selection pressure.
+
+### 3. Can I use Contrast-FEL for analyzing more than two groups?
+
+Yes, Contrast-FEL can conduct analyses on multiple groups. The analysis will
+generate pairwise comparisons and an omnibus test to assess overall differences
+among the selected branches.
+
+### 4. How do I interpret conflicting selection signals from Contrast-FEL and other tests?
+
+It’s essential to recognize that different methods can yield varying results
+based on their underlying models and assumptions. If Contrast-FEL indicates
+selection at specific sites while models like BUSTED-PH does not find evidence for
+selection, consider:
+
+- The context of site-level versus gene-level assessments.
+- The robustness of your dataset in terms of size and variability.
+- Functional annotations and biological relevancy of the findings might help clarify discrepancies.
