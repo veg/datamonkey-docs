@@ -76,3 +76,54 @@ Here’s a step-by-step guide on how to use aBSREL through its web interface:
 
 5. **Export Results**:
    - Download the detailed results in JSON format for further processing or archiving.
+
+## Frequently Asked Questions (FAQ)
+
+### 1. Why are some branches in my analysis showing "test not run"?
+
+This occurs when certain branches have been explicitly excluded by the user during the setup process, usually due to selection criteria for testing.
+
+### 2. How do I interpret high omega values from aBSREL?
+
+High omega values can indicate either very strong positive selection or could
+be artifacts of aligning sequences incorrectly. Values greater than 1 typically
+indicate a site is under positive selection, but higher values (e.g., 10 or
+more) may signal potential data issues.
+
+### 3. How can I obtain dN and dS values from aBSREL results?
+
+aBSREL primarily reports omega values. For dN and dS, you will need to run complementary models (such as FitMG94) that allow for the estimation of these values based on the inferred rates.
+
+### 4. What is the effect of using a large dataset in aBSREL?
+
+Large datasets can increase computational time and complexity, potentially
+leading to numerical instabilities. It's generally advisable to look for
+shorter branches and evaluate the quality of your multiple sequence alignments
+before proceeding with analysis.
+
+### 5. Why are specific nodes showing evidence of positive selection while descendants do not?
+
+This could occur if the entire clade does not experience the same level of
+selection pressure or if there are mutations unique to specific branches that
+do not translate to downstream branches. Investigating other factors affecting
+these branches is crucial for interpreting results accurately.
+
+### 5. How does positive selection differ from selection in methods like BUSTED and RELAX?
+
+While BUSTED combines branches for selection detection, aBSREL evaluates
+branches individually. This means BUSTED can detect selection more powerfully
+when tested across many branches, while aBSREL can granularly identify which
+branches experience selection through a more detailed analysis.
+
+### 6. Do I need to provide branch lengths when using a species tree?
+
+Branch lengths are not strictly required for aBSREL, but providing them can
+influence results positively. If your branch lengths do not provide meaningful
+information, consider using a constant length for all branches initially and
+refine later based on results.
+
+### 7. What if I'm encountering inconsistent results between local and server runs?
+
+Inconsistencies may arise from software version differences or tree formatting
+issues. Ensure that both your local environment and the server are using the
+same version of HyPhy.
