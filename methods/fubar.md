@@ -110,20 +110,29 @@ sample size regarding detection of selection.
 
 ### 5. Should I run GARD before FUBAR, especially with large datasets?
 
-Yes, running GARD first is advisable as it helps to identify recombination breakpoints within your alignment, which can improve the reliability of subsequent analyses such as FUBAR.
+Yes, running GARD first is advisable as it helps to identify recombination
+breakpoints within your alignment, which can improve the reliability of
+subsequent analyses such as FUBAR.
 
 ### 6. How to specify different branches for foreground and background in FUBAR?
 
-Unfortunately, FUBAR does not currently support direct partitioning of foreground/background branches.
+Unfortunately, FUBAR does not currently support direct partitioning of
+foreground/background branches.
 
 ### 7. My results from FUBAR contains many null values for alpha (dS) and beta (dN). What should I do?
 
-This is likely due to numerical underflow from zero-length branches in your tree.
+This is likely due to numerical underflow from zero-length branches in your
+tree.
 
 ### 8. I’ve encountered segmentation faults or underflow errors during analysis. What can I do to resolve these?
 
-Given that these issues often arise from complex or long alignments, try breaking down your dataset into smaller parts. Additionally, make sure you are using the latest version of HyPhy, as fixes for such bugs are routinely released.
+Given that these issues often arise from complex or long alignments, try
+breaking down your dataset into smaller parts. Additionally, make sure you are
+using the latest version of HyPhy, as fixes for such bugs are routinely
+released.
 
 ### 9. I have multiple runs with FUBAR and FEL; how can I combine their results?
 
-Each analysis can produce distinct outputs. You may need to extract relevant data from the json files and compile them into a single table, often utilizing scripts or data manipulation in R or Python.
+Each analysis can produce distinct outputs. You may need to extract relevant
+data from the json files and compile them into a single table, often utilizing
+scripts or data manipulation in R or Python.
