@@ -52,3 +52,17 @@ with Bayesian Graphical Models." Methods Mol Biol 1851: 105-122
 al. "An Evolutionary-Network Model Reveals Stratified Interactions in the V3
 Loop of the HIV-1 Envelope." PLOS Comput Biol 3, e231
 (2007).](https://doi.org/10.1371/journal.pcbi.0030231)
+
+## FAQ
+
+### 1. **Why are my BGM results showing constant sites as co-evolving?**
+
+- BGM uses codon data, considering both synonymous and non-synonymous substitutions.
+
+### 2. **Can BGM compare specified branches against other branches?**
+
+- BGM does not natively support comparisons between specified foreground branches and other background branches. However, you can run separate analyses on your desired sets of branches to explore co-evolutionary patterns.
+
+### 3. **What should I do if I experience "standard error" messages while running Spidermonkey/BGM?**
+
+- If encountering standard errors, ensure your input parameters align with the expected data types. If problems persist, consider submitting the job details and parameters to the support team for analysis.
