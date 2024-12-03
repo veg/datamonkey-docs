@@ -80,3 +80,18 @@ Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an int
 ## References
 
 - [Observable FEL Visualization](https://observablehq.com/@spond/fel)
+
+## FAQ
+
+### 1. Why do results differ significantly between FEL and SLAC?
+
+FEL detects site-wise selection pressures, whereas SLAC assesses average rates
+over the entire alignment. These differences in assumptions and methodologies
+can lead to discrepancies. Always consider the evolutionary context and
+sampling when int erpreting these results.
+
+### 2. How do I handle gaps in my nucleotide alignment when running selection analyses like FEL or MEME?
+
+Gaps may be interpreted as missing data by HyPhy. It’s generally best to
+minimize gaps through alignment trimming tools like TrimAI before inputting
+into HyPhy.

@@ -78,3 +78,52 @@ The results from FUBAR can be visualized using built-in interactive tools, displ
 4. **Export Results**:
    - Results can be downloaded in JSON format for further analysis or kept for record-keeping.
    - Use the available buttons to export visualizations as images.
+
+## FAQ
+
+### 1. I am using FUBAR and MEME to analyze a set of genes, but I often see discrepancies in the results. Why does FUBAR report more selected sites?
+
+FUBAR detects pervasive selection, while MEME looks for episodic selection. It
+is common to find that FUBAR reports more sites, as it is designed to identify
+consistent selection over time, whereas MEME may flag a smaller number of sites
+that show evidence of selection specifically at certain time points.
+
+### 2. How should I handle sequences that contain gaps or ambiguous bases (Ns) when using FUBAR or other selection methods?
+
+Generally, gaps are treated as missing data, and HyPhy should handle them.
+However, sequences with a high proportion of gaps may carry less informative
+content, leading to potential bias in the analysis. It's advisable to
+pre-filter sequences with excessive gaps before analysis for better results.
+
+### 3. Calculating gene-wide dN and dS values from FUBAR output?
+
+Yes, you can calculate mean dN/dS across selected sites by averaging the dN and
+dS values for only the positively selected sites reported by FUBAR, but keep in
+mind that high variability may influence results.
+
+### 4. Running tests with smaller datasets (fewer than 10 sequences)?
+
+With small datasets, you may find that statistical power decreases
+significantly. For reliable results, it's recommended to use methods like FEL,
+which may still provide useful insights, but consider the limitations of your
+sample size regarding detection of selection.
+
+### 5. Should I run GARD before FUBAR, especially with large datasets?
+
+Yes, running GARD first is advisable as it helps to identify recombination breakpoints within your alignment, which can improve the reliability of subsequent analyses such as FUBAR.
+
+### 6. How to specify different branches for foreground and background in FUBAR?
+
+Unfortunately, FUBAR does not currently support direct partitioning of foreground/background branches.
+
+### 7. My results from FUBAR contains many null values for alpha (dS) and beta (dN). What should I do?
+
+This is likely due to numerical underflow from zero-length branches in your tree.
+
+### 8. I’ve encountered segmentation faults or underflow errors during analysis. What can I do to resolve these?
+
+Given that these issues often arise from complex or long alignments, try breaking down your dataset into smaller parts. Additionally, make sure you are using the latest version of HyPhy, as fixes for such bugs are routinely released.
+
+### 9. I have multiple runs with FUBAR and FEL; how can I combine their results?
+
+Each analysis can produce distinct outputs. You may need to extract relevant data from the json files and compile them into a single table, often utilizing scripts or data manipulation in R or Python.
