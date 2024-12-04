@@ -65,3 +65,25 @@ The RELAX method generates a JSON file that contains:
 4. **Export Results**:
    - Download the detailed JSON results for further examination or archiving.
    - Options for exporting visualizations (SVG/PNG) of the tree are available.
+
+## FAQ
+
+### 1. How are K values interpreted in the RELAX model?
+
+K values indicate the relative selection pressure. A K value of less than 1 indicates relaxation of selection, whereas a K greater than 1 suggests intensification.
+
+### 2. Can I run RELAX on a concatenated dataset with many genes?
+
+It is generally advisable to run RELAX on individual genes rather than concatenated data, as pooled datasets can complicate the inference of selective pressures.
+
+### 3. How do I increase the chances of detecting relaxed/strengthened selection?
+
+Use larger datasets with more branches in your test set, ensure good sequence quality, and consider multiple testing corrections to improve statistical robustness.
+
+### 4. How can I ensure accurate branch and omega estimations in RELAX?
+
+Make sure to utilize a robust phylogenetic tree, clean up your alignment, and properly specify branch groups for testing. Additionally, monitor for any warnings in the output regarding convergence.
+
+### 5. What steps should be taken if I wish to validate the outcomes of multiple hypotheses from BUSTED and RELAX?
+
+Use false discovery rate (FDR) corrections for p-values across the results. This allows for a more accurate interpretation of the results while minimizing the risk of type I errors.

@@ -105,4 +105,63 @@ MEME includes an interactive visualization component that allows users to dynami
 - [MEME Source Code and Documentation](https://github.com/veg/hyphy) - Explore the method's implementation and additional functionality.
 - [PLOS Genetics article](https://doi.org/10.1371/journal.pgen.1002764) - Access the original publication detailing the MEME method and its applications.
 
----
+## FAQ
+
+### 1. What do the results of MEME indicate?
+
+Results from MEME report the sites that show evidence of episodic positive
+selection, along with empirical Bayes factors (EBFs) that indicate the strength
+of the evidence for selection on each site across branches. A significant
+p-value indicates positive selection, while the number of branches associated
+with that selection can highlight the locations within the phylogeny.
+
+### 2. Why might there be significant p-values with 0 branches under selection?
+
+This situation often arises when the variation at a site indicates divergence
+but does not correlate with specific branches being highly influential. It
+suggests diffuse support for selection; that is, multiple branches contribute
+to the signal for selection without any single branch being statistically
+significant on its own.
+
+### 3. How should I interpret EBF (Empirical Bayes Factor) in the MEME output?
+
+EBF is used to assess the strength of evidence for positive selection at a
+given site on specific branches. Higher EBF values suggest stronger evidence
+for selection. Generally, EBF values greater than 100 indicate strong support
+for positive selection.
+
+### 4. What is the best strategy to analyze selection pressure across different branches?
+
+Using tools such as BUSTED or aBSREL is recommended for branch-level analysis
+of selection pressure. After identifying positively selected genes, you can
+then apply MEME for site-specific analysis. It is not advisable to filter
+results based only on previously detected positive selection.
+
+### 5. Can I run MEME and aBSREL on the same dataset?
+
+Yes, you can run both tools on the same dataset. However, be cautious of
+interpreting results when using both methods, as they employ different
+approaches to testing for selection.
+
+### 6. What if I have a limited sample size, such as fewer than 10 sequences?
+
+For smaller sample sizes, the power to detect selection is inherently reduced.
+BUSTED is particularly useful for detecting selection at the gene level even
+with limited data. Methods like FEL and MEME may still be applied, but results
+should be interpreted with caution, keeping in mind the potential for false
+negatives or positives.
+
+### 7. Is it important to provide an outgroup when analyzing selection?
+
+While not strictly necessary, including an outgroup in your analysis can
+provide valuable context for identifying positive selection and establishing
+the evolutionary history of the genes of interest. An outgroup can help
+polarize the traits and infer the ancestral states more reliably.
+
+### 8. How do I interpret my results across different methods (e.g. MEME vs. FEL)?
+
+When interpreting results obtained from different methods, remember that:
+
+- MEME focuses on episodic positive selection, while FEL analyzes pervasive selection.
+- Results may vary; it’s essential to compare the significance of p-values and EBF values collectively rather than relying on one method exclusively.
+- Use the findings to inform hypotheses, but approach conclusions conservatively, recognizing the potential for discrepancies.
