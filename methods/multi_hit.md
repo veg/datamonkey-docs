@@ -77,3 +77,37 @@ Here’s a step-by-step guide to using the MULTI-HIT tool via the website:
 
 5. **Download Outputs**:
    - Optionally, download the output files for storage or further analysis.
+
+## Example CLI Usage
+
+To run the FitMultiModel analysis using HyPhy, you can use the following command:
+
+```bash
+/path/to/hyphy/hyphy
+```
+
+### Parameters
+
+- **--code**: Which genetic code should be used (default: "Universal").
+- **--alignment**: An in-frame codon alignment in a supported format (required).
+- **--tree**: A phylogenetic tree file (optional).
+- **--rates**: The number of omega rate classes to include in the model (default: 3).
+- **--triple-islands**: Use a separate rate parameter for synonymous triple-hit substitutions ("Yes" or "No").
+- **--output**: File path to save the resulting JSON (default: same path as alignment file + 'FITTER.json').
+- **--save-fit**: File path to save model fit files, with extensions (.MODEL_NAME.bf); default is NOT to save.
+
+### Full Example Usage
+
+Here’s a complete command with parameters set:
+
+```bash
+/path/to/hyphy/hyphy --code Universal --alignment alignment.fasta --tree tree.nwk --rates 3 --triple-islands Yes --output results.json --save-fit dev/null
+```
+
+### Minimal Example Command
+
+For a minimal example without default parameters:
+
+```bash
+/path/to/hyphy/hyphy --alignment alignment.fasta
+```

@@ -77,6 +77,49 @@ Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an int
 4. **Export Results**:
    - Download detailed JSON results for further analysis or archiving.
 
+## Example CLI Usage of the FEL Analysis
+
+### Full Example Command
+
+To run the FEL analysis with specified parameters, use the following command syntax:
+
+```bash
+/path/to/hyphy/hyphy \
+  --alignment path/to/alignment_file.phy \
+  --tree path/to/tree_file.nwk \
+  --code Universal \
+  --branches All \
+  --srv Yes \
+  --resample 50 \
+  --ci Yes \
+  --multiple-hits Double \
+  --site-multihit Estimate \
+  --output results.json
+```
+
+### Minimal Example Command
+
+A minimal command using default parameters would look like this:
+
+```bash
+/path/to/hyphy/hyphy \
+  --alignment path/to/alignment_file.phy \
+  --tree path/to/tree_file.nwk
+```
+
+### List of Parameters
+
+- **--alignment**: Path to the in-frame codon alignment file.
+- **--tree**: Path to the phylogenetic tree file (optionally annotated).
+- **--code**: Genetic code to use (default is "Universal").
+- **--branches**: Branches to include in the analysis (default is "All").
+- **--srv**: Include synonymous rate variation in the model (default is "Yes").
+- **--multiple-hits**: Specify handling of multiple nucleotide substitutions (default is "None").
+- **--resample**: Number of bootstrap resamples to perform (default is 0, meaning no resampling).
+- **--ci**: Compute confidence intervals for estimated rates (default is "No").
+- **--output**: Path to save the resulting JSON output file (default is auto-generated).
+- **--site-multihit**: Specify whether to estimate multiple hit rates for each site (default is "Estimate").
+
 ## References
 
 - [Observable FEL Visualization](https://observablehq.com/@spond/fel)

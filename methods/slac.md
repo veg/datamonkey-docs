@@ -71,3 +71,31 @@ SLAC results can be visualized through interactive tools available on the web pl
 
 4. **Export Results**:
    - Download the resulting JSON file for further analysis or report generation.
+
+## Example CLI Usage
+
+To use the **SLAC** analysis in HyPhy, you can run the following commands.
+
+### Full Example Usage
+
+```bash
+/path/to/hyphy/hyphy --code "Universal" --alignment /path/to/alignment_file.phy --tree /path/to/tree_file.newick --branches "All" --samples 100 --pvalue 0.1 --output /path/to/output_file.SLAC.json
+```
+
+### Parameters:
+
+- **--code**: Specify the genetic code to use (default is "Universal").
+- **--alignment**: Provide the path to an in-frame codon alignment file in a supported format.
+- **--tree**: Provide the path to a phylogenetic tree file (optional).
+- **--branches**: Specify branches to test (default is "All").
+- **--samples**: Define the number of samples for ancestral reconstruction uncertainty (default is 100).
+- **--pvalue**: Set the threshold for statistical significance (default is 0.1).
+- **--output**: File path where the JSON output will be saved (default output is in the same directory as alignment file, with '.SLAC.json' appended).
+
+### Minimal Example Command
+
+```bash
+/path/to/hyphy/hyphy --alignment /path/to/alignment_file.phy --tree /path/to/tree_file.newick
+```
+
+This command uses the default parameters for genetic code, branches, samples, and p-value, focusing solely on the required alignment and tree files.

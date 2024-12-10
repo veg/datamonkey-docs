@@ -111,6 +111,74 @@ BUSTED produces a JSON file summarizing the analysis results.
 4. **Export Results**:
    - Download the JSON results for archiving or further analyses with associated metadata.
 
+## Example CLI Usage
+
+To use the BUSTED statistical test for episodic diversification, you can run the following command:
+
+```bash
+/path/to/hyphy/hyphy /Users/sweaver/Programming/hyphy/hyphy/res/TemplateBatchFiles/SelectionAnalyses/BUSTED.bf \
+--code <GENETIC_CODE> \
+--alignment <ALIGNMENT_FILE> \
+--tree <TREE_FILE> \
+--branches <BRANCHES> \
+--srv <INCLUDE_SYNONYMOUS_RATE_VARIATION> \
+--rates <OMEGA_RATE_CLASSES> \
+--syn-rates <SYNONYMOUS_RATE_CLASSES> \
+--multiple-hits <MULTIPLE_HITS_OPTION> \
+--grid-size <INITIAL_GRID_SIZE> \
+--starting-points <INITIAL_GUESS_COUNT> \
+--error-sink <ERROR_SINK_OPTION> \
+--output <OUTPUT_FILE> \
+--save-fit <SAVE_FIT_OPTION>
+```
+
+### Parameters
+
+- **--code**: Specify the genetic code to be used (e.g. "Universal").
+- **--alignment**: Provide the path to an in-frame codon alignment file (required).
+- **--tree**: Specify the path to a phylogenetic tree file (required).
+- **--branches**: Indicate which branches to test (e.g. "All" or "FG").
+- **--srv**: Decide whether to include synonymous rate variation in the model (e.g. "Yes").
+- **--rates**: Set the number of omega rate classes to include in the model (default is 3).
+- **--syn-rates**: The number of synonymous rate classes to include in the model (default is 3).
+- **--multiple-hits**: Specify whether to include support for multiple nucleotide substitutions (options include "None", "Double", or "Double+Triple").
+- **--grid-size**: Define the number of points in the initial distributional guess for likelihood fitting (default is 250).
+- **--starting-points**: The number of initial random guesses to seed rate values optimization (default is 1).
+- **--error-sink**: An advanced experimental setting; include a rate class to capture misalignment artifacts (e.g. "Yes" or "No").
+- **--output**: Specify the path to save the resulting JSON file (default is to save in the same path as the alignment file with the suffix ".BUSTED.json").
+- **--save-fit**: Choose whether to save the BUSTED model fit to a file (default is "/dev/null" to skip saving).
+
+### Full Example Usage
+
+Here's a full example with all parameters specified:
+
+```bash
+/path/to/hyphy/hyphy /Users/sweaver/Programming/hyphy/hyphy/res/TemplateBatchFiles/SelectionAnalyses/BUSTED.bf \
+--code Universal \
+--alignment /path/to/alignment_file.aln \
+--tree /path/to/tree_file.tree \
+--branches FG \
+--srv Yes \
+--rates 3 \
+--syn-rates 3 \
+--multiple-hits Double \
+--grid-size 250 \
+--starting-points 1 \
+--error-sink No \
+--output /path/to/results.json \
+--save-fit /dev/null
+```
+
+### Minimal Example Command
+
+For a minimal example using only the required parameters:
+
+```bash
+/path/to/hyphy/hyphy /Users/sweaver/Programming/hyphy/hyphy/res/TemplateBatchFiles/SelectionAnalyses/BUSTED.bf \
+--alignment /path/to/alignment_file.aln \
+--tree /path/to/tree_file.tree
+```
+
 ## FAQs
 
 ### 1. **When should I use BUSTED-S over the original BUSTED method?**

@@ -53,6 +53,67 @@ al. "An Evolutionary-Network Model Reveals Stratified Interactions in the V3
 Loop of the HIV-1 Envelope." PLOS Comput Biol 3, e231
 (2007).](https://doi.org/10.1371/journal.pcbi.0030231)
 
+## Example CLI Usage of BGM
+
+To run the Bayesian Graphical Model (BGM) using HyPhy, use the following command:
+
+```bash
+/path/to/hyphy/hyphy \
+  --branches "All" \
+  --code GENETIC_CODE \
+  --type DATATYPE \
+  --alignment PATH_TO_ALIGNMENT_FILE \
+  --tree PATH_TO_TREE_FILE \
+  --steps LENGTH_OF_EACH_CHAIN \
+  --burn-in NUMBER_OF_BURN_IN_SAMPLES \
+  --samples NUMBER_OF_SAMPLES \
+  --max-parents MAXIMUM_PARENTS_PER_NODE \
+  --min-subs MINIMUM_SUBSTITUTIONS_PER_SITE \
+  --output RESULTS_FILE.json
+```
+
+### Parameters
+
+- **--branches**: Specify branches to test (e.g., "All").
+- **--code**: Genetic code to use (default: "Universal").
+- **--type**: Data type: `nucleotide`, `amino-acid`, or `codon`.
+- **--alignment**: Path to the alignment file.
+- **--tree**: Path to the phylogenetic tree file.
+- **--steps**: Number of MCMC steps to sample.
+- **--burn-in**: Number of MCMC steps to discard as burn-in.
+- **--samples**: Number of samples to extract from the chain.
+- **--max-parents**: Maximum number of parents allowed per node.
+- **--min-subs**: Minimum number of substitutions per site to include in the analysis.
+- **--output**: Path for the output results in JSON format.
+
+### Full Example Command
+
+```bash
+/path/to/hyphy/hyphy \
+  --branches "All" \
+  --code "Universal" \
+  --type "codon" \
+  --alignment "/path/to/alignment/file.fasta" \
+  --tree "/path/to/tree/file.tree" \
+  --steps 100000 \
+  --burn-in 10000 \
+  --samples 100 \
+  --max-parents 1 \
+  --min-subs 1 \
+  --output "results.BGM.json"
+```
+
+### Minimal Example Command
+
+```bash
+/path/to/hyphy/hyphy \
+  --branches "All" \
+  --code "Universal" \
+  --type "codon" \
+  --alignment "/path/to/alignment/file.fasta" \
+  --tree "/path/to/tree/file.tree"
+```
+
 ## FAQ
 
 ### 1. **Why are my BGM results showing constant sites as co-evolving?**

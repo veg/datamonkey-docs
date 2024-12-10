@@ -66,6 +66,42 @@ The RELAX method generates a JSON file that contains:
    - Download the detailed JSON results for further examination or archiving.
    - Options for exporting visualizations (SVG/PNG) of the tree are available.
 
+## Example CLI Usage of RELAX in HyPhy
+
+To run the RELAX analysis using HyPhy, you would typically structure your command as follows:
+
+### Complete Command Example
+
+- **Command**:
+  ```bash
+  /path/to/hyphy/hyphy TemplateBatchFiles/SelectionAnalyses/RELAX.bf
+  ```
+- **Parameters**:
+  - `--code` - Specify the genetic code to use (e.g., "Universal")
+  - `--alignment` - Provide the path to the in-frame codon alignment file (e.g., "alignment.phy")
+  - `--tree` - Path to the phylogenetic tree file (e.g., "tree.nwk")
+  - `--mode` - Run mode (e.g., "Classic mode")
+  - `--test` - Designate which branches to consider as the test set (e.g., "TEST")
+  - `--reference` - Specify the reference branches (e.g., "REFERENCE")
+  - `--models` - Type of analysis (e.g., "All")
+  - `--rates` - Number of omega rate classes (e.g., "3")
+  - `--kill-zero-lengths` - Specify whether to handle zero-length branches (e.g., "No")
+  - `--output` - File name for saving the output results (e.g., "results.json")
+
+### Example Command
+
+```bash
+/path/to/hyphy/hyphy TemplateBatchFiles/SelectionAnalyses/RELAX.bf --code Universal --alignment alignment.phy --tree tree.nwk --mode "Classic mode" --test TEST --reference REFERENCE --models "All" --rates 3 --kill-zero-lengths No --output results.json
+```
+
+## Minimal Example Command
+
+If you prefer to run a command without default parameters, you can limit your input as follows:
+
+```bash
+/path/to/hyphy/hyphy TemplateBatchFiles/SelectionAnalyses/RELAX.bf --alignment alignment.phy --tree tree.nwk --test TEST --reference REFERENCE
+```
+
 ## FAQ
 
 ### 1. How are K values interpreted in the RELAX model?

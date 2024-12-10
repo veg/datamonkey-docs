@@ -50,6 +50,29 @@ Each tested branch in the output will have:
 - **Graphical Display**: Visual representation of rates and significances across branches.
 - **Site-by-Site Analysis**: Detailed tables corresponding to each branch, including statistics.
 
+## Example Command Line Usage
+
+```bash
+/path/to/hyphy/hyphy absrel --alignment <alignment_file> --tree <tree_file> --code <genetic_code> --branches <branches> --output <output_file>
+```
+
+### Parameters
+
+- `--alignment` : An in-frame codon alignment in one of the formats supported by HyPhy.
+- `--tree` : A phylogenetic tree (optionally annotated with {}).
+- `--code` : Which genetic code should be used (default: Universal).
+- `--branches` : Branches to test (default: All).
+- `--output` : Write the resulting JSON to this file (default is to save to the same path as the alignment file + 'ABSREL.json').
+- `--multiple-hits` : Include support for multiple nucleotide substitutions (options: None, Double, Double+Triple).
+- `--srv` : Include synonymous rate variation (options: Yes, No).
+- `--blb` : [Advanced option] Bag of little bootstrap alignment resampling rate (default: 1.0).
+
+### Example
+
+```bash
+/path/to/hyphy/hyphy absrel --alignment example_alignment.phy --tree example_tree.nwk --code Universal --branches FG --output results.ABSREL.json --multiple-hits Double --srv Yes --blb 0.5
+```
+
 ## Example Workflow
 
 Here’s a step-by-step guide on how to use aBSREL through its web interface:

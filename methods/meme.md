@@ -105,6 +105,41 @@ MEME includes an interactive visualization component that allows users to dynami
 - [MEME Source Code and Documentation](https://github.com/veg/hyphy) - Explore the method's implementation and additional functionality.
 - [PLOS Genetics article](https://doi.org/10.1371/journal.pgen.1002764) - Access the original publication detailing the MEME method and its applications.
 
+## Example CLI Usage
+
+To run the MEME analysis using HyPhy, use the following command:
+
+```
+/path/to/hyphy/hyphy meme --alignment <alignment_file> --tree <tree_file> --code <genetic_code> --multiple-hits <multiple_hits> --site-multihit <site_multihit> --rates <rates> --resample <resample> --impute-states <impute_states>
+```
+
+### Parameters
+
+- **`--alignment`**: Path to the in-frame codon alignment file.
+- **`--tree`**: Path to the phylogenetic tree file.
+- **`--code`**: Genetic code to be used (default: "Universal").
+- **`--multiple-hits`**: Options for including multiple substitutions; values can be "None", "Double", or "Double+Triple" (default: "None").
+- **`--site-multihit`**: Option to handle multiple substitutions at the site level; choose "`Estimate`" or "`Global`".
+- **`--rates`**: Number of different categories of non-synonymous rates to include in the model (default: `2`).
+- **`--resample`**: Number of bootstrapping replicates for hypothesis testing (default: `0`).
+- **`--impute-states`**: Impute likely character states for missing data (default: "No").
+
+### Full Example Usage
+
+Here is a complete example command using default inputs for optimal parameters:
+
+```
+/path/to/hyphy/hyphy meme --alignment my_alignment.fasta --tree my_tree.nwk --code Universal --multiple-hits None --site-multihit Estimate --rates 2 --resample 0 --impute-states No
+```
+
+### Minimal Example Command
+
+The following command uses only required parameters without any default values:
+
+```
+/path/to/hyphy/hyphy meme --alignment my_alignment.fasta --tree my_tree.nwk --code Universal
+```
+
 ## FAQ
 
 ### 1. What do the results of MEME indicate?

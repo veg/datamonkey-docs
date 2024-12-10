@@ -2,15 +2,11 @@
 
 NRM (**N**on-**R**eversibility of the **E**volutionary **P**rocess) is a statistical method used to test the non-reversibility of nucleotide substitutions in evolutionary models. This approach helps researchers to identify whether the evolutionary process at certain sites in a DNA sequence is reversible or not, providing vital insights into molecular evolution and the underlying selection pressures that shape genetic diversity.
 
----
-
 ## Citation
 
 If you use NRM in your analysis, please cite:
 
 Kosakovsky Pond, S.L., & Frost, S.D.W. (2005). "Not So Different After All: A Comparison of Methods for Detecting Amino Acid Sites Under Selection." _Molecular Biology and Evolution_.
-
----
 
 ## Input Parameters
 
@@ -26,8 +22,6 @@ Kosakovsky Pond, S.L., & Frost, S.D.W. (2005). "Not So Different After All: A Co
 - **Triple Islands**: Specify whether to use triple islands (default: "No").
 - **Receive Email**: An option to receive an email notification upon completion of the analysis (default: "No").
 - **Output File**: An option to specify a filename for the output results.
-
----
 
 ## Outputs
 
@@ -47,8 +41,6 @@ The site-level output includes the following:
 - **Statistical Significance**: P-values assessing the likelihood of reversibility.
 - **Selection Pressure Analysis**: Insight into selective forces acting upon the sequences tested.
 
----
-
 ## Visualization
 
 An interactive visualization tool is available to help users explore the results effectively. This tool provides:
@@ -56,8 +48,6 @@ An interactive visualization tool is available to help users explore the results
 - **Summary Statistics**: Visualization of the number of sequences and sites analyzed.
 - **Matrix Displays**: Graphical representations of transition rates for quick insight into the evolutionary patterns.
 - **Interactive Charts**: Plots for detailed examination of substitution dynamics across various sites.
-
----
 
 ## Example Workflow
 
@@ -82,4 +72,35 @@ Follow these steps to effectively use the NRM tool through the website:
 4. **Export Results**:
    - Download the JSON results file for external analysis or archiving as needed.
 
----
+## Example Usage
+
+To run the NRM analysis using HyPhy, you can use the following commands.
+
+### Full Example Command
+
+NRM.bf is located at https://github.com/veg/hyphy-analyses/tree/master/NucleotideNonREV
+
+```bash
+/path/to/hyphy/hyphy NRM.bf \
+  --alignment /path/to/alignment_file.fasta \
+  --tree /path/to/tree_file.newick \
+  --genetic_code Universal \
+  --rate_classes 2 \
+  --output /path/to/output.json
+```
+
+### Parameters
+
+- **--alignment**: Sequence alignment to fit non-reversible models to (required).
+- **--tree**: A phylogenetic tree (optionally annotated with {}) (required).
+- **--genetic_code**: The genetic code to apply (default is "Universal").
+- **--rate_classes**: The number of classes for rates (default: 1).
+- **--output**: Write the resulting JSON to this file (default is to save to the same path as the alignment file + 'NRM.json').
+
+### Minimal Example Command
+
+```bash
+/path/to/hyphy/hyphy NRM.bf \
+  --alignment /path/to/alignment_file.fasta \
+  --tree /path/to/tree_file.newick
+```

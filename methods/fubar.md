@@ -79,6 +79,43 @@ The results from FUBAR can be visualized using built-in interactive tools, displ
    - Results can be downloaded in JSON format for further analysis or kept for record-keeping.
    - Use the available buttons to export visualizations as images.
 
+## Example CLI Usage of FUBAR with HyPhy
+
+### Full Example Usage
+
+To run the FUBAR analysis with specified parameters, use the following command:
+
+```bash
+/path/to/hyphy/hyphy --alignment /path/to/alignment/file.fasta \
+--tree /path/to/tree/file.tree \
+--code Universal \
+--concentration_parameter 0.5 \
+--grid 20 \
+--output /path/to/results/file.FUBAR.json
+```
+
+### Parameters Explanation
+
+- **--alignment**: Specify the path to the input codon alignment file.
+- **--tree**: Input the path for the phylogenetic tree file.
+- **--code**: Specify the genetic code to be used (default: Universal).
+- **--concentration_parameter**: Set the concentration parameter of the Dirichlet prior (default: 0.5).
+- **--grid**: Indicates the number of grid points for analysis (default: 20; should be between 5 and 50).
+- **--output**: Path where the resulting JSON file will be saved.
+
+### Minimal Example Usage
+
+Here's a minimal example command with the bare minimum parameters:
+
+```bash
+/path/to/hyphy/hyphy --alignment /path/to/alignment/file.fasta --tree /path/to/tree/file.tree
+```
+
+### Parameters Explanation (Minimal)
+
+- **--alignment**: Specify the path to the input codon alignment file.
+- **--tree**: Input the path for the phylogenetic tree file.
+
 ## FAQ
 
 ### 1. I am using FUBAR and MEME to analyze a set of genes, but I often see discrepancies in the results. Why does FUBAR report more selected sites?

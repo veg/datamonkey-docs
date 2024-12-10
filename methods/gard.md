@@ -88,6 +88,36 @@ GARD results can be visualized using an interactive tool that displays:
 5. **Explore Interactive Features**:
    - Use the visualization tools to examine the evolutionary relationships and breakdowns in your data.
 
+## Example CLI Usage of GARD Command in HyPhy
+
+Please note that GARD is computationally expensive and would benefit greatly from running with OpenMPI.
+
+### Full Example Command
+
+To run the GARD analysis using HyPhy, use the following command structure:
+
+```bash
+/path/to/hyphy/hyphy --type nucleotide --alignment /path/to/alignment.fasta --model JTT --mode Normal --rv None --rate-classes 4 --output /path/to/results.json
+```
+
+### Minimal Example Command
+
+If you wish to run GARD with only essential parameters (default values applied), use:
+
+```bash
+/path/to/hyphy/hyphy --alignment /path/to/alignment.fasta
+```
+
+### Parameters
+
+- **type**: The type of data to perform screening on (options: 'nucleotide', 'protein', 'codon').
+- **alignment**: Sequence alignment to screen for recombination.
+- **model**: The substitution model to use (default: 'JTT').
+- **mode**: Run mode (default: 'Normal'; options: 'Normal', 'Faster').
+- **rv**: Site-to-site rate variation option (default: 'None'; options: 'None', 'Gamma', 'GDD').
+- **rate-classes**: How many site rate classes to use (default: 4).
+- **output**: Write the resulting JSON to this file.
+
 ## References
 
 - [GARD Observable Visualiaztion] - https://observablehq.com/@spond/plotting-gard-breakpoint-support

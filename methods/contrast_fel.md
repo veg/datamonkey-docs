@@ -78,6 +78,66 @@ Analyses from Contrast-FEL can be visualized using interactive tools available i
 5. **Export and Document**:
    - Results can be exported for further analysis or reporting purposes.
 
+## Example CLI Usage of Contrast-FEL
+
+To use Contrast-FEL for selection analysis, you can run the following command:
+
+```bash
+/path/to/hyphy/hyphy contrast-fel \
+  --alignment <alignment_file> \
+  --tree <tree_file> \
+  --branch-set <branch_set_1> \
+  --branch-set <branch_set_2> \
+  --output <output_file> \
+  --code <genetic_code> \
+  --srv <synonymous_rate_variation> \
+  --permutations <perform_permutations> \
+  --p-value <p_value_threshold> \
+  --q-value <q_value_threshold>
+```
+
+### Required Input Parameters
+
+- **--alignment**: Specify the in-frame codon alignment file (e.g., `.fasta`, `.phy`).
+- **--tree**: Provide the path to the phylogenetic tree file.
+- **--branch-set**: Indicate the branches to be used for comparison (repeat for multiple branch sets).
+
+### Optional Input Parameters
+
+- **--code**: Which genetic code should be used (default: "Universal").
+- **--srv**: Include synonymous rate variation in the model ("Yes" or "No", default: "Yes").
+- **--permutations**: Perform permutation significance tests ("Yes" or "No", default: "Yes").
+- **--p-value**: Significance value for site tests (default: 0.05).
+- **--q-value**: Significance value for False Discovery Rate reporting (default: 0.20).
+- **--output**: Specify the output file path for results (default is automatic JSON generation).
+
+### Full Example Command
+
+```bash
+/path/to/hyphy/hyphy contrast-fel \
+  --alignment my_alignment.phy \
+  --tree my_tree.nwk \
+  --branch-set Source \
+  --branch-set Test \
+  --output results.json \
+  --code Universal \
+  --srv Yes \
+  --permutations Yes \
+  --p-value 0.05 \
+  --q-value 0.20
+```
+
+### Minimal Example Command
+
+```bash
+/path/to/hyphy/hyphy contrast-fel \
+  --alignment my_alignment.phy \
+  --tree my_tree.nwk \
+  --branch-set Source \
+  --branch-set Test \
+  --output results.json
+```
+
 ## FAQ
 
 ### 1. How should I choose test and reference branches when running Contrast-FEL?
