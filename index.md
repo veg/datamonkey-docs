@@ -1,21 +1,19 @@
 ---
-title: Datamonkey
-description: Datamonkey Documentation
+title: Datamonkey Docs
+description: Datamonkey & HyPhy Documentation
 ---
 
-# Datamonkey
+# Datamonkey & HyPhy Documentation
 
 ## Introduction
 
-Learn more about using Datamonkey for your data analysis needs.
-
-<iframe 
-  width="560" 
-  height="315" 
-  src="https://www.youtube.com/embed/GD0T0UJSuYU" 
-  title="Datamonkey Overview" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/GD0T0UJSuYU"
+  title="Datamonkey Overview"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowfullscreen>
 </iframe>
 
@@ -23,4 +21,20 @@ Learn more about using Datamonkey for your data analysis needs.
 
 - [Analyzing Data](guide/analyzing_data.md)
 - [Data Files](guide/data_files.md)
-- [Resources](resources)
+- [Local Installation](guide/installation.md)
+- [Resources](resources.md)
+
+## Explore the Methods
+
+- [General Information](methods/general.md)
+- [aBSREL](methods/absrel.md)
+- [BGM](methods/bgm.md)
+- [BUSTED](methods/busted.md)
+- [Contrast-FEL](methods/contrast_fel.md)
+- [FEL](methods/fel.md)
+- [FUBAR](methods/fubar.md)
+- [GARD](methods/gard.md)
+- [MEME](methods/meme.md)
+- [MULTI-HIT](methods/multi_hit.md)
+- [RELAX](methods/relax.md)
+- [SLAC](methods/slac.md)

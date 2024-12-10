@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
-  title: "Datamonkey",
+  title: "Datamonkey & HyPhy",
   description: "Documentation",
   head: [
     [
