@@ -84,7 +84,7 @@ Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an int
 To run the FEL analysis with specified parameters, use the following command syntax:
 
 ```bash
-/path/to/hyphy/hyphy \
+/path/to/hyphy/hyphy fel \
   --alignment path/to/alignment_file.phy \
   --tree path/to/tree_file.nwk \
   --code Universal \
@@ -102,7 +102,7 @@ To run the FEL analysis with specified parameters, use the following command syn
 A minimal command using default parameters would look like this:
 
 ```bash
-/path/to/hyphy/hyphy \
+/path/to/hyphy/hyphy fel \
   --alignment path/to/alignment_file.phy \
   --tree path/to/tree_file.nwk
 ```

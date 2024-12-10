@@ -79,7 +79,7 @@ To use the **SLAC** analysis in HyPhy, you can run the following commands.
 ### Full Example Usage
 
 ```bash
-/path/to/hyphy/hyphy --code "Universal" --alignment /path/to/alignment_file.phy --tree /path/to/tree_file.newick --branches "All" --samples 100 --pvalue 0.1 --output /path/to/output_file.SLAC.json
+/path/to/hyphy/hyphy slac --code "Universal" --alignment /path/to/alignment_file.phy --tree /path/to/tree_file.newick --branches "All" --samples 100 --pvalue 0.1 --output /path/to/output_file.SLAC.json
 ```
 
 ### Parameters:
@@ -95,7 +95,7 @@ To use the **SLAC** analysis in HyPhy, you can run the following commands.
 ### Minimal Example Command
 
 ```bash
-/path/to/hyphy/hyphy --alignment /path/to/alignment_file.phy --tree /path/to/tree_file.newick
+/path/to/hyphy/hyphy slac --alignment /path/to/alignment_file.phy --tree /path/to/tree_file.newick
 ```
 
 This command uses the default parameters for genetic code, branches, samples, and p-value, focusing solely on the required alignment and tree files.

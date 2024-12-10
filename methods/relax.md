@@ -74,7 +74,7 @@ To run the RELAX analysis using HyPhy, you would typically structure your comman
 
 - **Command**:
   ```bash
-  /path/to/hyphy/hyphy TemplateBatchFiles/SelectionAnalyses/RELAX.bf
+  /path/to/hyphy/hyphy relax
   ```
 - **Parameters**:
   - `--code` - Specify the genetic code to use (e.g., "Universal")
@@ -91,7 +91,7 @@ To run the RELAX analysis using HyPhy, you would typically structure your comman
 ### Example Command
 
 ```bash
-/path/to/hyphy/hyphy TemplateBatchFiles/SelectionAnalyses/RELAX.bf --code Universal --alignment alignment.phy --tree tree.nwk --mode "Classic mode" --test TEST --reference REFERENCE --models "All" --rates 3 --kill-zero-lengths No --output results.json
+/path/to/hyphy/hyphy relax --code Universal --alignment alignment.phy --tree tree.nwk --mode "Classic mode" --test TEST --reference REFERENCE --models "All" --rates 3 --kill-zero-lengths No --output results.json
 ```
 
 ## Minimal Example Command
@@ -99,7 +99,7 @@ To run the RELAX analysis using HyPhy, you would typically structure your comman
 If you prefer to run a command without default parameters, you can limit your input as follows:
 
 ```bash
-/path/to/hyphy/hyphy TemplateBatchFiles/SelectionAnalyses/RELAX.bf --alignment alignment.phy --tree tree.nwk --test TEST --reference REFERENCE
+/path/to/hyphy/hyphy relax --alignment alignment.phy --tree tree.nwk --test TEST --reference REFERENCE
 ```
 
 ## FAQ

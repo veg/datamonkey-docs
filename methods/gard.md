@@ -97,7 +97,7 @@ Please note that GARD is computationally expensive and would benefit greatly fro
 To run the GARD analysis using HyPhy, use the following command structure:
 
 ```bash
-/path/to/hyphy/hyphy --type nucleotide --alignment /path/to/alignment.fasta --model JTT --mode Normal --rv None --rate-classes 4 --output /path/to/results.json
+/path/to/hyphy/hyphy gard --type nucleotide --alignment /path/to/alignment.fasta --model JTT --mode Normal --rv None --rate-classes 4 --output /path/to/results.json
 ```
 
 ### Minimal Example Command
@@ -105,7 +105,7 @@ To run the GARD analysis using HyPhy, use the following command structure:
 If you wish to run GARD with only essential parameters (default values applied), use:
 
 ```bash
-/path/to/hyphy/hyphy --alignment /path/to/alignment.fasta
+/path/to/hyphy/hyphy gard --alignment /path/to/alignment.fasta
 ```
 
 ### Parameters

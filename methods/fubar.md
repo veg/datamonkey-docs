@@ -86,7 +86,7 @@ The results from FUBAR can be visualized using built-in interactive tools, displ
 To run the FUBAR analysis with specified parameters, use the following command:
 
 ```bash
-/path/to/hyphy/hyphy --alignment /path/to/alignment/file.fasta \
+/path/to/hyphy/hyphy fubar --alignment /path/to/alignment/file.fasta \
 --tree /path/to/tree/file.tree \
 --code Universal \
 --concentration_parameter 0.5 \
@@ -108,7 +108,7 @@ To run the FUBAR analysis with specified parameters, use the following command:
 Here's a minimal example command with the bare minimum parameters:
 
 ```bash
-/path/to/hyphy/hyphy --alignment /path/to/alignment/file.fasta --tree /path/to/tree/file.tree
+/path/to/hyphy/hyphy fubar --alignment /path/to/alignment/file.fasta --tree /path/to/tree/file.tree
 ```
 
 ### Parameters Explanation (Minimal)

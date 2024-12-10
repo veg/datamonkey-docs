@@ -153,7 +153,7 @@ To use the BUSTED statistical test for episodic diversification, you can run the
 Here's a full example with all parameters specified:
 
 ```bash
-/path/to/hyphy/hyphy /Users/sweaver/Programming/hyphy/hyphy/res/TemplateBatchFiles/SelectionAnalyses/BUSTED.bf \
+/path/to/hyphy/hyphy busted \
 --code Universal \
 --alignment /path/to/alignment_file.aln \
 --tree /path/to/tree_file.tree \
@@ -174,7 +174,7 @@ Here's a full example with all parameters specified:
 For a minimal example using only the required parameters:
 
 ```bash
-/path/to/hyphy/hyphy /Users/sweaver/Programming/hyphy/hyphy/res/TemplateBatchFiles/SelectionAnalyses/BUSTED.bf \
+/path/to/hyphy/hyphy busted \
 --alignment /path/to/alignment_file.aln \
 --tree /path/to/tree_file.tree
 ```

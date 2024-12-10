@@ -83,7 +83,7 @@ Here’s a step-by-step guide to using the MULTI-HIT tool via the website:
 To run the FitMultiModel analysis using HyPhy, you can use the following command:
 
 ```bash
-/path/to/hyphy/hyphy
+/path/to/hyphy/hyphy $LIB_PATH/res/TemplateBatchFiles/SelectionMethods/FitMultiModel.bf
 ```
 
 ### Parameters
@@ -101,7 +101,7 @@ To run the FitMultiModel analysis using HyPhy, you can use the following command
 Here’s a complete command with parameters set:
 
 ```bash
-/path/to/hyphy/hyphy --code Universal --alignment alignment.fasta --tree tree.nwk --rates 3 --triple-islands Yes --output results.json --save-fit dev/null
+/path/to/hyphy/hyphy $LIB_PATH/res/TemplateBatchFiles/SelectionMethods/FitMultiModel.bf --code Universal --alignment alignment.fasta --tree tree.nwk --rates 3 --triple-islands Yes --output results.json --save-fit dev/null
 ```
 
 ### Minimal Example Command
@@ -109,5 +109,5 @@ Here’s a complete command with parameters set:
 For a minimal example without default parameters:
 
 ```bash
-/path/to/hyphy/hyphy --alignment alignment.fasta
+/path/to/hyphy/hyphy $LIB_PATH/res/TemplateBatchFiles/SelectionMethods/FitMultiModel.bf --alignment alignment.fasta
 ```

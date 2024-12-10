@@ -58,7 +58,7 @@ Loop of the HIV-1 Envelope." PLOS Comput Biol 3, e231
 To run the Bayesian Graphical Model (BGM) using HyPhy, use the following command:
 
 ```bash
-/path/to/hyphy/hyphy \
+/path/to/hyphy/hyphy bgm \
   --branches "All" \
   --code GENETIC_CODE \
   --type DATATYPE \
@@ -89,7 +89,7 @@ To run the Bayesian Graphical Model (BGM) using HyPhy, use the following command
 ### Full Example Command
 
 ```bash
-/path/to/hyphy/hyphy \
+/path/to/hyphy/hyphy bgm \
   --branches "All" \
   --code "Universal" \
   --type "codon" \
@@ -106,7 +106,7 @@ To run the Bayesian Graphical Model (BGM) using HyPhy, use the following command
 ### Minimal Example Command
 
 ```bash
-/path/to/hyphy/hyphy \
+/path/to/hyphy/hyphy bgm \
   --branches "All" \
   --code "Universal" \
   --type "codon" \
