@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
-  title: "Datamonkey & HyPhy",
+  title: "Datamonkey",
   description: "Documentation",
   head: [
     [
@@ -32,6 +32,8 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    logo: "./header-logo.svg",
+    siteTitle: "",
     sidebar: [
       {
         text: "Guide",

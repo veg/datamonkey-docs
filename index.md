@@ -3,9 +3,15 @@ title: Datamonkey Docs
 description: Datamonkey & HyPhy Documentation
 ---
 
-# Datamonkey & HyPhy Documentation
+<img src="./header-logo.svg" />
 
 ## Introduction
+
+[![GitHub repo](https://img.shields.io/badge/github-repo-green)](https://github.com/veg/hyphy)
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/veg/hyphy/blob/master/LICENSE)
+
+![Datamonkey Status](https://img.shields.io/uptimerobot/status/m798175520-008618c030c619b40dc9b54a)
 
 <iframe
   width="560"
