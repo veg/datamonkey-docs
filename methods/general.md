@@ -1,10 +1,6 @@
-<!--------------------------------------------------------------------------------------->
-
-## Overview
+# Overview
 
 HyPhy provides a suite of tools for analyzing phylogenetic sequence data, in particular for inferring the strength of selection from sequence data. In addition, HyPhy features a flexible batch language for implementing and customizing discrete state Markov models in a phylogenetic framework.
-
-<!--------------------------------------------------------------------------------------->
 
 ## MG94xREV Framework
 
@@ -34,8 +30,6 @@ Parameters in this matrix include the following:
 - Not explicitly seen in this model are the _equilibrium codon frequencies_, denoted $\boldsymbol{\hat{\Pi}}$. These frequencies are estimated using nine positional nucleotide frequencies for the target nucleotides in each codon substitution. Specifically, HyPhy employs the [CF3x4](http://dx.doi.org/10.1371/journal.pone.0011230) frequency estimator, a corrected version of the common F3x4 estimator (introduced in [Goldman and Yang 1994](https://www.ncbi.nlm.nih.gov/pubmed/7968486)) which accounts for biases in nucleotide composition induced by stop codons.
 
 Most methods <!--(except FADE, which does not use codon data)--> will perform a global MG94xREV fit to optimize branch length and nucleotide substitution parameters before proceeding to hypothesis testing. Several methods ([FEL](./selection-methods/#fel), [FUBAR](./selection-methods/#fubar), and [MEME](./selection-methods/#meme)) additionally pre-fit a GTR nucleotide model to the data, using the estimated parameters as starting values for the global MG94xREV fit, as a computational speed-up. Resulting branch length and nucleotide substitution parameters are subsequently used as initial parameter values during model fitting for hypothesis testing.
-
-<!--------------------------------------------------------------------------------------->
 
 ## Synonymous Rate Variation
 
