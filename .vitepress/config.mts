@@ -20,7 +20,8 @@ export default defineConfig({
       "script",
       {
         type: "text/javascript",
-        src: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js",
+        src:
+          "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js",
       },
     ],
   ],
@@ -41,6 +42,7 @@ export default defineConfig({
           { text: "Analyzing Data", link: "/guide/analyzing_data" },
           { text: "Data Files", link: "/guide/data_files" },
           { text: "Local Installation", link: "/guide/installation" },
+          { text: "About", link: "/guide/about" },
         ],
       },
       {
