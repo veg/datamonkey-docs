@@ -21,7 +21,8 @@ export default defineConfig({
       "script",
       {
         type: "text/javascript",
-        src: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js",
+        src:
+          "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js",
       },
     ],
   ],
@@ -33,7 +34,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    logo: "./header-logo.svg",
+    logo: "//www.datamonkey.org/assets/img/header-logo.svg",
     siteTitle: "",
     sidebar: [
       {
