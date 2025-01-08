@@ -77,19 +77,11 @@ A minimal command using default parameters would look like this:
 - **--output**: Path to save the resulting JSON output file (default is auto-generated).
 
 
-
-
-
-
-
-
-
-
 ## Joint analysis of several genes
 ### Required Inputs
 
 - **Genetic Code**: The genetic code to use (default: "Universal").
-- **Model**: SynREVCodon
+- **Model**: Which MSS model to use. Options are SynREV (Default) or SynREVCodon.
 - **File list**: A text list of newline-separated file paths, where each listed file contains a codon-aware alignment and the corresponding gene tree
 - **Omega**: How alignment-level omega estimates should be handled (default: "Fix"; Fix omega estimates at those obtained with the standard MG94xREV model)
 
@@ -101,16 +93,12 @@ A minimal command using default parameters would look like this:
 To run the MSS analysis with specified parameters, use the following command syntax:
 
 ```bash
-/path/to/hyphy/hyphy fel \
-  --alignment path/to/alignment_file.phy \
-  --tree path/to/tree_file.nwk \
+/path/to/hyphy/hyphy \
+/path/to/hyphy/res/TemplateBatchFiles/MSS-joint-fitter.bf \
+  --filelist path/to/list_of_files.txt \
   --code Universal \
-  --branches All \
-  --srv Yes \
-  --resample 50 \
-  --ci Yes \
-  --multiple-hits Double \
-  --site-multihit Estimate \
+  --model SynREVCodon \
+  --omega Fix \
   --output results.json
 ```
 
@@ -119,23 +107,20 @@ To run the MSS analysis with specified parameters, use the following command syn
 A minimal command using default parameters would look like this:
 
 ```bash
-/path/to/hyphy/hyphy fel \
-  --alignment path/to/alignment_file.phy \
-  --tree path/to/tree_file.nwk
+/path/to/hyphy/hyphy \
+/path/to/hyphy/res/TemplateBatchFiles/MSS-joint-fitter.bf \
+  --filelist path/to/list_of_files.txt \
+  --model SynREVCodon
 ```
 
 ### List of Parameters
 
-- **--alignment**: Path to the in-frame codon alignment file.
-- **--tree**: Path to the phylogenetic tree file (optionally annotated).
+- **--filelist**: List of files to include in this analysis.
 - **--code**: Genetic code to use (default is "Universal").
-- **--branches**: Branches to include in the analysis (default is "All").
-- **--srv**: Include synonymous rate variation in the model (default is "Yes").
-- **--multiple-hits**: Specify handling of multiple nucleotide substitutions (default is "None").
-- **--resample**: Number of bootstrap resamples to perform (default is 0, meaning no resampling).
-- **--ci**: Compute confidence intervals for estimated rates (default is "No").
+- **--model**: Which MSS model to use. Options are SynREV (Default) or SynREVCodon.
+- **--omega**: How should alignment-level omega be treated? (default: Fix)
 - **--output**: Path to save the resulting JSON output file (default is auto-generated).
-- **--site-multihit**: Specify whether to estimate multiple hit rates for each site (default is "Estimate").
+- **--save-fit**: Write the resulting model fit file to this (large!) file.
 
 
 
