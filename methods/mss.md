@@ -30,12 +30,8 @@ Verdonk, H., Pivirotto, A., Pavinato, V., Hey, J., & Kosakovsky Pond, S.L. (2025
 - **Genetic Code**: The genetic code to use (default: "Universal").
 - **Alignment File**: An in-frame codon alignment file (supported formats: `.fasta`, `.phy`, etc.).
 - **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
-- **Branches to Test**
-
---model MSS 
---alignment gene.nex 
---mss-type SynREVCodon
-
+- **Model**: Which hyphy model to fit. In this case, MSS (as opposed to a model like FEL)
+- **MSS Type**: Which of the available MSS models to use.
 
 ### Optional Inputs
 - **Output File**: Automatically generated in JSON format.
@@ -55,7 +51,6 @@ To run the MSS analysis with specified parameters, use the following command syn
   --output results.json
 ```
 
-
 ### Minimal Example Command
 
 A minimal command using default parameters would look like this:
@@ -74,13 +69,12 @@ A minimal command using default parameters would look like this:
 - **--alignment**: Path to the in-frame codon alignment file.
 - **--tree**: Path to the phylogenetic tree file (optionally annotated).
 - **--code**: Genetic code to use (default is "Universal").
-- **--branches**: Branches to include in the analysis (default is "All").
-- **--srv**: Include synonymous rate variation in the model (default is "Yes").
-- **--multiple-hits**: Specify handling of multiple nucleotide substitutions (default is "None").
-- **--resample**: Number of bootstrap resamples to perform (default is 0, meaning no resampling).
-- **--ci**: Compute confidence intervals for estimated rates (default is "No").
+- **--model**: Which hyphy model to fit. In this case, specify `MSS`
+- **--mss-type**: One of the MSS models from the list of available models.
+- **--mss-classes**: How many codon rate classes. Required when `mss-type` is "Random".
+- **--mss-file**: File defining the model partition when `mss-type` is "File" or "Codon-file" (Required). File defining empirical rates for each pair of codons when `mss-type` is "Empirical" (Required).
+- **--mss-neutral**: Designation for the neutral substitution rate. Required when `mss-type` is "File" or "Codon-file".
 - **--output**: Path to save the resulting JSON output file (default is auto-generated).
-- **--site-multihit**: Specify whether to estimate multiple hit rates for each site (default is "Estimate").
 
 
 
