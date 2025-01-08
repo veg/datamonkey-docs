@@ -1,11 +1,8 @@
 # Multiple Synonymous Substitution (MSS)
 
-MSS (**M**ultiple **S**ynonymous **S**ubstitution) 
+MSS (**M**ultiple **S**ynonymous **S**ubstitution) uses a maximum-likelihood (ML) framework to investigate selection on synonymous substitutions in coding sequences. MSS models extend traditional codon models (*e.g.*, MG94) by estimating substitution rates among synonymous codon pairs, allowing these rates to vary based on codon-specific features. Synonymous rates may be estimated for a single gene, or estimated jointly from a set of genes.
 
-
-uses a maximum-likelihood (ML) approach to infer nonsynonymous (dN) and synonymous (dS) substitution rates on a per-site basis for a coding alignment and phylogeny. This method assumes the selection pressure at each site remains constant across the phylogeny.
-
-After optimizing branch lengths and nucleotide substitution parameters, FEL fits an MG94xREV model to each codon site to estimate site-specific nonsynonymous (dN) and synonymous (dS) substitution rates. A Likelihood Ratio Test (LRT) determines if dN is significantly greater than dS, indicating selection.
+After optimizing phylogenetic parameters such as branch lengths and nucleotide substitution biases, MSS assigns each synonymous substitution to one of multiple rate classes, then estimates the relative substitution rate for each rate class. The most complex MSS model, called SynREVCodon, partitions synonymous substitutions into 67 classes - one for each pair of synonymous codons reachable by a single nucleotide substitution, assuming the universal genetic code. MSS models capture heterogeneity in codon usage driven by selective pressures like translational efficiency, and enable a rigorous statistical comparison of synonymous substitution rates within or across genes. 
 
 ## Citation
 
@@ -16,6 +13,17 @@ Verdonk, H., Pivirotto, A., Pavinato, V., Hey, J., & Kosakovsky Pond, S.L. (2025
 
 22(5), 1208–1222. [https://doi.org/10.1093/molbev/msi105](https://doi.org/10.1093/molbev/msi105)
 
+## Available MSS models
+- **Full**: Each set of codons mapping to the same amino-acid class have a separate substitution rate (Valine == neutral)
+- **SynREV**: Each set of codons mapping to the same amino-acid class have a separate substitution rate (mean = 1)
+- **SynREV2**: Each pair of synonymous codons mapping to the same amino-acid class and separated by a transition have a separate substitution rate (no rate scaling)
+- **SynREV2g**: Each pair of synonymous codons mapping to the same amino-acid class and separated by a transition have a separate substitution rate (Valine == neutral). All between-class synonymous substitutions share a rate.
+- **SynREVCodon**: Each codon pair that is exchangeable gets its own substitution rate (fully estimated, mean = 1)
+- **Random**: Random partition (specify how many classes; largest class = neutral)
+- **Empirical**: Load a TSV file with an empirical rate estimate for each codon pair
+- **File**: Load a TSV partition from file (prompted for neutral class)
+- **Codon-file**: Load a TSV partition for pairs of codons from a file (prompted for neutral class)
+
 ## Analysis of a single gene
 ### Required Inputs
 
@@ -24,11 +32,64 @@ Verdonk, H., Pivirotto, A., Pavinato, V., Hey, J., & Kosakovsky Pond, S.L. (2025
 - **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
 - **Branches to Test**
 
-### Optional Inputs
+--model MSS 
+--alignment gene.nex 
+--mss-type SynREVCodon
 
-- **Synonymous Rate Variation**: Enable/disable synonymous rate variation (default: "Yes").
-- **Multiple Hits**: Specify how to handle multiple nucleotide substitutions. Options: `"None"`, `"Double"`, or `"Double+Triple"` (default: "None").
+
+### Optional Inputs
 - **Output File**: Automatically generated in JSON format.
+
+### Full Example Command
+
+To run the MSS analysis with specified parameters, use the following command syntax:
+
+```bash
+/path/to/hyphy/hyphy \
+/path/to/hyphy-analyses/FitModel/FitModel.bf \
+  --model MSS \
+  --mss-type SynREVCodon \
+  --alignment path/to/alignment_file.fas \
+  --tree path/to/tree_file.nwk \
+  --code Universal \
+  --output results.json
+```
+
+
+### Minimal Example Command
+
+A minimal command using default parameters would look like this:
+
+```bash
+/path/to/hyphy/hyphy \
+/path/to/hyphy-analyses/FitModel/FitModel.bf \
+  --alignment path/to/alignment_file.fas \
+  --tree path/to/tree_file.nwk \
+  --model MSS \
+  --mss-type SynREVCodon \
+```
+
+### List of Parameters
+
+- **--alignment**: Path to the in-frame codon alignment file.
+- **--tree**: Path to the phylogenetic tree file (optionally annotated).
+- **--code**: Genetic code to use (default is "Universal").
+- **--branches**: Branches to include in the analysis (default is "All").
+- **--srv**: Include synonymous rate variation in the model (default is "Yes").
+- **--multiple-hits**: Specify handling of multiple nucleotide substitutions (default is "None").
+- **--resample**: Number of bootstrap resamples to perform (default is 0, meaning no resampling).
+- **--ci**: Compute confidence intervals for estimated rates (default is "No").
+- **--output**: Path to save the resulting JSON output file (default is auto-generated).
+- **--site-multihit**: Specify whether to estimate multiple hit rates for each site (default is "Estimate").
+
+
+
+
+
+
+
+
+
 
 ## Joint analysis of several genes
 ### Required Inputs
@@ -41,7 +102,46 @@ Verdonk, H., Pivirotto, A., Pavinato, V., Hey, J., & Kosakovsky Pond, S.L. (2025
 ### Optional Inputs
 - **Output File**: Automatically generated in JSON format.
 
+### Full Example Command
 
+To run the MSS analysis with specified parameters, use the following command syntax:
+
+```bash
+/path/to/hyphy/hyphy fel \
+  --alignment path/to/alignment_file.phy \
+  --tree path/to/tree_file.nwk \
+  --code Universal \
+  --branches All \
+  --srv Yes \
+  --resample 50 \
+  --ci Yes \
+  --multiple-hits Double \
+  --site-multihit Estimate \
+  --output results.json
+```
+
+### Minimal Example Command
+
+A minimal command using default parameters would look like this:
+
+```bash
+/path/to/hyphy/hyphy fel \
+  --alignment path/to/alignment_file.phy \
+  --tree path/to/tree_file.nwk
+```
+
+### List of Parameters
+
+- **--alignment**: Path to the in-frame codon alignment file.
+- **--tree**: Path to the phylogenetic tree file (optionally annotated).
+- **--code**: Genetic code to use (default is "Universal").
+- **--branches**: Branches to include in the analysis (default is "All").
+- **--srv**: Include synonymous rate variation in the model (default is "Yes").
+- **--multiple-hits**: Specify handling of multiple nucleotide substitutions (default is "None").
+- **--resample**: Number of bootstrap resamples to perform (default is 0, meaning no resampling).
+- **--ci**: Compute confidence intervals for estimated rates (default is "No").
+- **--output**: Path to save the resulting JSON output file (default is auto-generated).
+- **--site-multihit**: Specify whether to estimate multiple hit rates for each site (default is "Estimate").
 
 
 
@@ -87,78 +187,10 @@ Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an int
   - A detailed table of codons with estimates, LRT scores, and p-values.
   - Phylogenetic tree view highlighting branches contributing to the analysis.
 
-## Example Workflow
 
-1. **Upload Data**:
-   - Provide an alignment file and corresponding phylogenetic tree.
-   - Configure the genetic code and other optional parameters.
-2. **Run Analysis**:
-   - Click "Run Analysis" to begin the FEL analysis.
-   - Optionally, provide an email address to be notified upon completion.
-3. **Review Results**:
-   - View summary statistics and plots in the results interface.
-   - Adjust the p-value threshold to explore sites under different selection categories.
-4. **Export Results**:
-   - Download detailed JSON results for further analysis or archiving.
 
-## Example CLI Usage of the FEL Analysis
-
-### Full Example Command
-
-To run the FEL analysis with specified parameters, use the following command syntax:
-
-```bash
-/path/to/hyphy/hyphy fel \
-  --alignment path/to/alignment_file.phy \
-  --tree path/to/tree_file.nwk \
-  --code Universal \
-  --branches All \
-  --srv Yes \
-  --resample 50 \
-  --ci Yes \
-  --multiple-hits Double \
-  --site-multihit Estimate \
-  --output results.json
-```
-
-### Minimal Example Command
-
-A minimal command using default parameters would look like this:
-
-```bash
-/path/to/hyphy/hyphy fel \
-  --alignment path/to/alignment_file.phy \
-  --tree path/to/tree_file.nwk
-```
-
-### List of Parameters
-
-- **--alignment**: Path to the in-frame codon alignment file.
-- **--tree**: Path to the phylogenetic tree file (optionally annotated).
-- **--code**: Genetic code to use (default is "Universal").
-- **--branches**: Branches to include in the analysis (default is "All").
-- **--srv**: Include synonymous rate variation in the model (default is "Yes").
-- **--multiple-hits**: Specify handling of multiple nucleotide substitutions (default is "None").
-- **--resample**: Number of bootstrap resamples to perform (default is 0, meaning no resampling).
-- **--ci**: Compute confidence intervals for estimated rates (default is "No").
-- **--output**: Path to save the resulting JSON output file (default is auto-generated).
-- **--site-multihit**: Specify whether to estimate multiple hit rates for each site (default is "Estimate").
 
 ## References
 
 - [Observable FEL Visualization](https://observablehq.com/@spond/fel)
 
-## FAQ
-
-### 1. Why do results differ significantly between FEL and SLAC?
-
-FEL detects site-wise selection pressures, whereas SLAC assesses average rates
-over the entire alignment. These differences in assumptions and methodologies
-can lead to discrepancies. Always consider the evolutionary context and
-sampling when int erpreting these results.
-
-### 2. How do I handle gaps in my nucleotide alignment when running selection analyses like FEL or MEME?
-
-Gaps may be interpreted as missing data by HyPhy. It’s generally best to
-minimize gaps through alignment trimming tools like TrimAI before inputting
-into HyPhy.
