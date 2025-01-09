@@ -1,17 +1,14 @@
 # Multiple Synonymous Substitution (MSS)
 
-MSS (**M**ultiple **S**ynonymous **S**ubstitution) uses a maximum-likelihood (ML) framework to investigate selection on synonymous substitutions in coding sequences. MSS models extend traditional codon models (*e.g.*, MG94) by estimating substitution rates among synonymous codon pairs, allowing these rates to vary based on codon-specific features. Synonymous rates may be estimated for a single gene, or estimated jointly from a set of genes.
+MSS (**M**ultiple **S**ynonymous **S**ubstitution) models use a maximum-likelihood (ML) framework to investigate selection on synonymous substitutions in coding sequences. MSS models extend traditional codon models (*e.g.*, MG94) by estimating substitution rates among synonymous codon pairs, allowing these rates to vary based on codon-specific features. Synonymous rates may be estimated for a single gene, or estimated jointly from a set of genes.
 
-After optimizing phylogenetic parameters such as branch lengths and nucleotide substitution biases, MSS assigns each synonymous substitution to one of multiple rate classes, then estimates the relative substitution rate for each rate class. The most complex MSS model, called SynREVCodon, partitions synonymous substitutions into 67 classes - one for each pair of synonymous codons reachable by a single nucleotide substitution, assuming the universal genetic code. MSS models capture heterogeneity in codon usage driven by selective pressures like translational efficiency, and enable a rigorous statistical comparison of synonymous substitution rates within or across genes. 
+After optimizing phylogenetic parameters such as branch lengths and nucleotide substitution biases, MSS assigns each synonymous substitution to one of multiple rate classes, then estimates the relative substitution rate for each rate class. MSS models capture heterogeneity in codon usage driven by selective pressures like translational efficiency, and enable a rigorous statistical comparison of synonymous substitution rates within or across genes. 
 
 ## Citation
 
 If you use MSS in your analysis, please cite:
 
-Verdonk, H., Pivirotto, A., Pavinato, V., Hey, J., & Kosakovsky Pond, S.L. (2025). "A new comparative framework for estimating selection on synonymous substitutions." _Molecular Biology and Evolution_, 
-
-
-22(5), 1208–1222. [https://doi.org/10.1093/molbev/msi105](https://doi.org/10.1093/molbev/msi105)
+Verdonk, H., Pivirotto, A., Pavinato, V., Hey, J., & Kosakovsky Pond, S.L. (2024). A new comparative framework for estimating selection on synonymous substitutions. BioRxiv (Cold Spring Harbor Laboratory). https://doi.org/10.1101/2024.09.17.613331
 
 ## Available MSS models
 - **Full**: Each set of codons mapping to the same amino-acid class have a separate substitution rate (Valine == neutral)
@@ -28,9 +25,9 @@ Verdonk, H., Pivirotto, A., Pavinato, V., Hey, J., & Kosakovsky Pond, S.L. (2025
 ### Required Inputs
 
 - **Genetic Code**: The genetic code to use (default: "Universal").
-- **Alignment File**: An in-frame codon alignment file (supported formats: `.fasta`, `.phy`, etc.).
+- **Alignment File**: An in-frame codon alignment file (supported formats: `.fasta`, `.nex`, etc.).
 - **Phylogenetic Tree**: A phylogenetic tree (with optional branch length annotations) appended to the FASTA file or embedded within the NEXUS file.
-- **Model**: Which hyphy model to fit. In this case, MSS (as opposed to a model like FEL)
+- **Model**: Which hyphy model to fit. In this case, MSS (as opposed to a model like [FEL](fel.md))
 - **MSS Type**: Which of the available MSS models to use.
 
 ### Optional Inputs
@@ -72,7 +69,7 @@ A minimal command using default parameters would look like this:
 - **--model**: Which hyphy model to fit. In this case, specify `MSS`
 - **--mss-type**: One of the MSS models from the list of available models.
 - **--mss-classes**: How many codon rate classes. Required when `mss-type` is "Random".
-- **--mss-file**: File defining the model partition when `mss-type` is "File" or "Codon-file" (Required). File defining empirical rates for each pair of codons when `mss-type` is "Empirical" (Required).
+- **--mss-file**: Required file defining the model partition when `mss-type` is "File" or "Codon-file". Required file defining empirical rates for each pair of codons when `mss-type` is "Empirical". Not required otherwise.
 - **--mss-neutral**: Designation for the neutral substitution rate. Required when `mss-type` is "File" or "Codon-file".
 - **--output**: Path to save the resulting JSON output file (default is auto-generated).
 
@@ -123,13 +120,6 @@ A minimal command using default parameters would look like this:
 - **--save-fit**: Write the resulting model fit file to this (large!) file.
 
 
-
-
-
-
-
-
-
 ## Outputs
 
 ### Summary
@@ -137,39 +127,10 @@ A minimal command using default parameters would look like this:
 MSS generates a JSON file containing:
 
 - Analysis details, including metadata and input parameters.
-- Site-by-site results with estimates of selection pressures and statistical significance.
-
-### Site-Level Output Details
-
-Each codon in the output includes:
-
-- **Alpha (α)**: Relative synonymous substitution rate.
-- **Beta (β)**: Relative nonsynonymous substitution rate for tested branches.
-- **Likelihood Ratio Test (LRT)**: Statistic comparing null (dN = dS) vs. alternative (dN ≠ dS).
-- **P-value**: Significance of selection (lower values indicate stronger evidence).
-- **Total Branch Length**: Length of branches used for inference.
-- **Selection Classification**: Sites categorized as diversifying, purifying, or neutral.
+- Synonymous rate for each codon class (maximum likelihood estimate).
+- Joint analyses will also contain data for each individual gene (each gene is listed as a "model_object").
 
 ## Visualization
 
-Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an interactive exploration of results.
-
-### Features
-
-- **Summary Statistics**:
-  - Number of sequences and codons analyzed.
-  - Sites under diversifying or purifying selection.
-- **Plots**:
-  - Alpha/beta site-level estimates.
-  - dN/dS distributions for tested sites.
-- **Site-by-Site Results**:
-  - A detailed table of codons with estimates, LRT scores, and p-values.
-  - Phylogenetic tree view highlighting branches contributing to the analysis.
-
-
-
-
-## References
-
-- [Observable FEL Visualization](https://observablehq.com/@spond/fel)
+Coming soon: **MSS Visualization Tool** for an interactive exploration of results.
 
