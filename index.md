@@ -41,6 +41,7 @@ description: Datamonkey & HyPhy Documentation
 - [FUBAR](methods/fubar.md)
 - [GARD](methods/gard.md)
 - [MEME](methods/meme.md)
+- [MSS](methods/mss.md)
 - [MULTI-HIT](methods/multi_hit.md)
 - [RELAX](methods/relax.md)
 - [SLAC](methods/slac.md)
