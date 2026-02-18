@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Brand colors — Datamonkey purple palette */
+  --vp-c-brand-1: #7c3aed;
+  --vp-c-brand-2: #6b46c1;
+  --vp-c-brand-3: #8b5cf6;
+  --vp-c-brand-soft: rgba(124, 58, 237, 0.14);
+
+  /* Typography */
+  --vp-font-family-base: 'Source Sans 3', 'Source Sans Pro', ui-sans-serif, system-ui, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+}
+
+.dark {
+  --vp-c-brand-1: #a78bfa;
+  --vp-c-brand-2: #8b5cf6;
+  --vp-c-brand-3: #7c3aed;
+  --vp-c-brand-soft: rgba(167, 139, 250, 0.14);
+}

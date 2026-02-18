@@ -70,7 +70,6 @@ Use the [FEL Visualization Tool](https://observablehq.com/@spond/fel) for an int
    - Configure the genetic code and other optional parameters.
 2. **Run Analysis**:
    - Click "Run Analysis" to begin the FEL analysis.
-   - Optionally, provide an email address to be notified upon completion.
 3. **Review Results**:
    - View summary statistics and plots in the results interface.
    - Adjust the p-value threshold to explore sites under different selection categories.

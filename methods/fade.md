@@ -65,7 +65,7 @@ FADE results can be visualized using the FADE Visualization Tool, which allows u
 2. **Configure Settings**:
    - Select the substitution model and posterior estimation method. Adjust any optional parameters as needed.
 3. **Run Analysis**:
-   - Click the "Run Analysis" button. Wait for a confirmation message or email notification upon completion.
+   - Click the "Run Analysis" button.
 4. **Review Results**:
    - Access the results page, where you can view overall analysis statistics, site details, and visualizations.
 5. **Export Data**:

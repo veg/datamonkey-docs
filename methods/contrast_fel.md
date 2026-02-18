@@ -68,7 +68,6 @@ Analyses from Contrast-FEL can be visualized using interactive tools available i
 3. **Run Analysis**:
 
    - Click the "Run Analysis" button to initiate the Contrast-FEL computation.
-   - Optionally, provide an email address to receive notifications upon completion.
 
 4. **Review Results**:
 

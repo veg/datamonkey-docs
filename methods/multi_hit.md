@@ -67,11 +67,10 @@ Here’s a step-by-step guide to using the MULTI-HIT tool via the website:
 3. **Run Analysis**:
 
    - Click the "Run Analysis" button to initiate the MULTI-HIT process.
-   - Monitor the progress on the interface. Once completed, you will receive a notification if opted in.
 
 4. **Review Results**:
 
-   - Access your results through a generated link or through your notifications.
+   - Access your results through the generated link.
    - Review both the summary statistics and detailed site-level data.
    - Use the visualization tools to explore your findings interactively.
 
