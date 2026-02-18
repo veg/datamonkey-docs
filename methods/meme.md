@@ -90,7 +90,6 @@ MEME includes an interactive visualization component that allows users to dynami
 2. **Run Analysis**:
 
    - Click on the "Run Analysis" button to initiate the MEME analysis.
-   - Optionally provide an email address to be notified upon completion.
 
 3. **Review Results**:
 

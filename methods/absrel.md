@@ -90,7 +90,6 @@ Here’s a step-by-step guide on how to use aBSREL through its web interface:
 3. **Run the Analysis**:
 
    - Click the "Run Analysis" button to begin the computation.
-   - Optionally, provide an email address to receive notifications once the analysis is complete.
 
 4. **Review Results**:
 

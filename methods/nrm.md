@@ -20,7 +20,6 @@ Kosakovsky Pond, S.L., & Frost, S.D.W. (2005). "Not So Different After All: A Co
 
 - **Rate Classes**: The number of classes for rates (default: 1).
 - **Triple Islands**: Specify whether to use triple islands (default: "No").
-- **Receive Email**: An option to receive an email notification upon completion of the analysis (default: "No").
 - **Output File**: An option to specify a filename for the output results.
 
 ## Outputs
@@ -62,7 +61,6 @@ Follow these steps to effectively use the NRM tool through the website:
 2. **Run Analysis**:
 
    - Click the "Run Analysis" button to start the NRM analysis.
-   - You may opt to enter your email address to get notified upon completion.
 
 3. **Review Results**:
 

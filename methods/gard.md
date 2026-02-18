@@ -78,7 +78,6 @@ GARD results can be visualized using an interactive tool that displays:
 3. **Run Analysis**:
 
    - Click the "Run Analysis" button to initiate the GARD workflow.
-   - You can optionally provide an email address to receive notifications upon completion.
 
 4. **Review Results**:
 
