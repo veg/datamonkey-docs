@@ -37,6 +37,7 @@ title: Datamonkey Documentation
 - [FUBAR](/methods/fubar) — fast unconstrained Bayesian approximation
 - [GARD](/methods/gard) — genetic algorithm for recombination detection
 - [MEME](/methods/meme) — mixed effects model of evolution for episodic selection
+- [MSS](/methods/mss) — multiple synonymous substitution models
 - [MULTI-HIT](/methods/multi_hit) — accounting for multiple simultaneous substitutions
 - [NRM](/methods/nrm) — nucleotide rate matrix analysis
 - [PRIME](/methods/prime) — property-informed models of evolution

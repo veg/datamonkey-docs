@@ -78,6 +78,7 @@ export default defineConfig({
           { text: "FUBAR", link: "/methods/fubar" },
           { text: "GARD", link: "/methods/gard" },
           { text: "MEME", link: "/methods/meme" },
+          { text: "MSS", link: "/methods/mss" },
           { text: "MULTI-HIT", link: "/methods/multi_hit" },
           { text: "NRM", link: "/methods/nrm" },
           { text: "PRIME", link: "/methods/prime" },
