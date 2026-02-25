@@ -69,6 +69,7 @@ export default defineConfig({
         items: [
           { text: "General", link: "/methods/general" },
           { text: "aBSREL", link: "/methods/absrel" },
+          { text: "B-STILL", link: "/methods/b-still" },
           { text: "BGM", link: "/methods/bgm" },
           { text: "BUSTED", link: "/methods/busted" },
           { text: "Contrast-FEL", link: "/methods/contrast_fel" },

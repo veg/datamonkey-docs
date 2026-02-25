@@ -28,6 +28,7 @@ title: Datamonkey Documentation
 
 - [General Information](/methods/general) — overview and how to choose a method
 - [aBSREL](/methods/absrel) — adaptive branch-site test for episodic diversification
+- [B-STILL](/methods/b-still) — Bayesian test for invariant sites
 - [BGM](/methods/bgm) — Bayesian graphical models for coevolving sites
 - [BUSTED](/methods/busted) — branch-site unrestricted statistical test for episodic diversification
 - [Contrast-FEL](/methods/contrast_fel) — test for differences in selective pressures between groups
