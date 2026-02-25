@@ -1,45 +1,45 @@
 # B-STILL (Bayesian Significance Test of Invariant Low Likelihoods)
 
-B-STILL (**B**ayesian **S**ignificance **T**est of **I**nvariant **L**ow **L**ikelihoods) is a modified version of [FUBAR](/methods/fubar) designed to detect **invariant sites** in coding sequence alignments. While FUBAR focuses on identifying sites under positive or negative selection, B-STILL specifically tests whether individual sites are effectively invariant (both synonymous and non-synonymous substitution rates near zero) and quantifies the evidence using posterior probabilities and Empirical Bayes Factors (EBFs).
+B-STILL (**B**ayesian **S**ignificance **T**est of **I**nvariant **L**ow **L**ikelihoods) is a rigorous extension of the [FUBAR](/methods/fubar) framework designed to quantify the **statistical significance of conserved sites** in coding sequence alignments. While FUBAR focuses on identifying sites under positive or negative selection, B-STILL specifically tests whether individual sites are effectively invariant and measures the "surprise" of that invariance relative to a gene-wide empirical prior.
 
-B-STILL is useful when the biological question is not "where is selection acting?" but rather "which sites are so constrained that they tolerate virtually no substitutions at all?" This complements standard selection analyses by identifying the most conserved positions in a protein.
+Traditional phylogenetic models treat invariable sites as statistical nuisances, subsuming them into background parameters (e.g., the "+I" parameter in GTR+I+$\Gamma$ models). B-STILL instead treats invariance as a primary signal of deep purifying selection. In a shallow alignment, an invariable site is statistically uninformative because there has not been sufficient time for substitutions to occur by drift. In a deep alignment spanning a large total tree length ($T$), the probability of observing zero substitutions under a neutral Poisson process ($e^{-T}$) becomes vanishingly small. At this limit, stasis is no longer a nuisance but a profound indicator of functional or structural constraint. B-STILL provides the framework to distinguish between these two regimes.
 
 ## Citation
 
-If you use B-STILL in your analysis, please cite the underlying FUBAR methodology:
+> Citation forthcoming. If you use B-STILL in your analysis, please also cite the underlying FUBAR methodology.
 
 [Murrell, B et al. "FUBAR: A Fast, Unconstrained Bayesian AppRoximation for inferring selection." Mol. Biol. Evol. 30, 1196-1205 (2013).](https://doi.org/10.1093/molbev/mst030)
 
 ## How It Works
 
-B-STILL shares the same computational framework as FUBAR but modifies the grid construction and post-processing to focus on invariance detection:
+B-STILL extends the FUBAR computational framework with two key innovations:
 
-1. **Nucleotide Model Fit**: A GTR nucleotide model is fitted to estimate nucleotide substitution biases.
-2. **Grid Construction**: A 2D grid of synonymous ($\alpha$) and non-synonymous ($\beta$) rate values is constructed. Unlike standard FUBAR, B-STILL uses a **denser grid around zero** (via a quadratic spacing: $x^2$), concentrating resolution where it matters most for detecting invariance.
-3. **Conditional Likelihood Computation**: Site-specific likelihoods are computed at each grid point using the MG94×REV codon model with branch lengths scaled from the GTR fit.
-4. **Posterior Estimation**: A Bayesian posterior distribution over the grid is estimated using one of three methods: Variational Bayes (fastest, recommended), Collapsed Gibbs sampling, or full Metropolis-Hastings MCMC.
-5. **Invariance Testing**: For each site, B-STILL computes posterior probabilities and Empirical Bayes Factors for several invariance hypotheses.
+1. **Quadratic grid resolution.** Instead of linear or log-spaced grids, B-STILL uses a quadratic grid ($r_k = (k/(K-1))^2 \times R_{\max}$) that concentrates density in the near-zero rate regime, providing the resolution needed to distinguish between low-level purifying selection and absolute stasis.
+
+2. **Gene-wide information sharing.** B-STILL pools information across all sites to infer a data-specific distribution of selective pressures. This empirical prior establishes the baseline expectation of conservation for the gene, so the EBF at each site measures the "surprise" of invariance relative to what the gene as a whole predicts.
+
+The underlying evolutionary process uses the MG94×REV codon model. Nucleotide exchangeability parameters and branch lengths are estimated from a GTR fit and held fixed, while site-specific synonymous ($\alpha$) and non-synonymous ($\beta$) rates are inferred via the grid. Posterior estimation uses zeroth-order Variational Bayes (VB0) by default, with Collapsed Gibbs and Metropolis-Hastings MCMC as alternatives.
 
 ### Invariance Hypotheses
 
-B-STILL evaluates multiple invariance conditions at each site:
+B-STILL evaluates four invariance conditions at each site:
 
-- **$\alpha = \beta = 0$** (strict invariance): Both synonymous and non-synonymous rates are exactly zero. The site is completely invariant.
-- **$\alpha = 0$** (synonymous invariance): No synonymous substitutions occur at this site.
-- **$\beta = 0$** (non-synonymous invariance): No non-synonymous substitutions occur at this site.
-- **$\alpha, \beta \approx 0$** (proximal invariance): Both rates fall within a user-defined radius of zero, based on the expected number of substitutions. This is the primary test reported by B-STILL. Sites passing this threshold have substitution rates so low that the expected number of substitutions per branch is negligible.
+- **$\alpha = \beta = 0$ (exact invariance).** Both rates are exactly zero. The site is completely invariant.
+- **$\alpha = 0$ (synonymous invariance).** No synonymous substitutions. Can indicate nucleotide-level constraint (RNA structure, splicing signals, exonic regulatory elements).
+- **$\beta = 0$ (non-synonymous invariance).** No non-synonymous substitutions. Reflects protein-level constraint on the encoded amino acid.
+- **$E[S] < X$ (proximal stasis).** The total expected number of substitutions across the entire phylogeny falls below the radius threshold $X$ (default: 0.5). This is the **primary test** reported by B-STILL and is generally a better predictor of biological constraint than exact stasis, because it accounts for low-level mutational leakage at functionally constrained positions.
 
-### Proximal Invariance and the Radius Threshold
-
-The proximal invariance test uses a biologically motivated criterion. Rather than testing whether rates are exactly zero (which is a point hypothesis on a continuous grid), B-STILL defines a "near-zero" region using a **radius threshold** parameter. A grid point $(\alpha, \beta)$ is considered proximal to zero if the expected number of substitutions under those rates (computed from the fitted branch length expression) falls below the threshold value. The default radius threshold of 0.5 means that grid points where the expected substitution count is less than half a substitution per site across the tree are considered "effectively invariant."
+The distinction between synonymous and non-synonymous invariance is biologically informative. Sites with high $\text{EBF}[\alpha = 0]$ but low non-synonymous constraint may harbor functional RNA elements overlapping the coding sequence. Sites with high $\text{EBF}[\beta = 0]$ but permissive synonymous rates reflect standard protein-level purifying selection.
 
 ### Empirical Bayes Factors
 
-B-STILL reports Empirical Bayes Factors (EBFs) for each invariance hypothesis. The EBF compares the posterior odds to the prior odds:
+The primary statistical metric is the Empirical Bayes Factor (EBF), which compares the posterior odds of a given state $S$ to the gene-wide prior odds:
 
-$$\text{EBF} = \frac{P(\text{invariant} \mid \text{data}) / P(\text{not invariant} \mid \text{data})}{P(\text{invariant}) / P(\text{not invariant})}$$
+$$\text{EBF}(S) = \frac{P(S \mid \text{Data}) \,/\, (1 - P(S \mid \text{Data}))}{P(S) \,/\, (1 - P(S))}$$
 
-An EBF $\geq 10$ (the default threshold) provides strong evidence that a site is invariant. Higher EBF values indicate stronger evidence. The prior probability is derived from the marginal posterior weights over the grid.
+An EBF $\geq 10$ (the default threshold) indicates that the data have shifted the odds of invariance by a factor of 10 relative to the prior. EBFs are codon-aware: two amino-acid-identical sites can yield different EBFs depending on the synonymous redundancy of the fixed codon, because stasis at a highly degenerate codon (e.g., 4-fold Serine) is more "surprising" than at a low-redundancy codon (e.g., 2-fold Tyrosine).
+
+B-STILL requires sufficient evolutionary depth to be informative. In shallow trees, the probability of zero substitutions under neutrality is already high, so B-STILL will correctly report few or no significant sites. The method becomes powerful when total tree length $T > 2$.
 
 ## Input Parameters
 
@@ -148,34 +148,36 @@ hyphy b-still \
 
 | Feature | FUBAR | B-STILL |
 |---|---|---|
-| Primary goal | Detect positive/negative selection | Detect invariant sites |
-| Grid design | Standard spacing | Denser grid around zero ($x^2$ spacing) |
-| Key output | Posterior probability of $\alpha < \beta$ | Posterior probability and EBF for $\alpha, \beta \approx 0$ |
-| Reporting criterion | Posterior probability $\geq 0.9$ | EBF $\geq 10$ for proximal invariance |
+| Primary goal | Detect positive/negative selection | Quantify statistical significance of invariant sites |
+| Grid design | Standard linear/log spacing | Quadratic grid concentrated near zero |
+| Key innovation | Rate comparison ($\alpha$ vs $\beta$) | Gene-wide information sharing to measure "surprise" of invariance |
+| Key output | Posterior probability of $\alpha < \beta$ | Posterior probability and EBF for proximal stasis ($E[S] < X$) |
+| Reporting criterion | Posterior probability $\geq 0.9$ | EBF $\geq 10$ for proximal stasis |
+| Invariance partitioning | Not applicable | Distinguishes synonymous ($\alpha = 0$), non-synonymous ($\beta = 0$), exact ($\alpha = \beta = 0$), and proximal ($E[S] < X$) stasis |
 | Output file extension | `.FUBAR.json` | `.FUBAR-inv.json` |
 
 ## FAQ
 
 ### 1. How does B-STILL differ from simply looking at sites with low dN/dS in FUBAR?
 
-FUBAR estimates posterior mean rates and tests whether $\alpha < \beta$ or $\alpha > \beta$. A site with low posterior mean rates in FUBAR might still have substantial posterior weight spread across non-zero grid points. B-STILL explicitly computes the posterior probability that both rates are near zero and quantifies the evidence via Empirical Bayes Factors, providing a direct and statistically rigorous test for invariance.
+FUBAR estimates posterior mean rates and tests whether $\alpha < \beta$ or $\alpha > \beta$. A site with low posterior mean rates in FUBAR might still have substantial posterior weight spread across non-zero grid points. B-STILL explicitly computes the posterior probability that both rates are near zero and quantifies the evidence via Empirical Bayes Factors, providing a direct and statistically rigorous test for invariance. Critically, B-STILL also leverages gene-wide information sharing to establish a data-specific baseline, so the "surprise" of invariance is calibrated against the evolutionary history of the entire gene.
 
 ### 2. What EBF threshold should I use?
 
-The default threshold of 10 provides strong evidence for invariance. An EBF of 10 means the data have shifted the odds of invariance by a factor of 10 relative to the prior. For more conservative analyses, use a higher threshold (e.g., 100). For exploratory analyses, lower thresholds (e.g., 5) may be appropriate.
+The default threshold of 10 provides strong evidence for invariance. An EBF of 10 means the data have shifted the odds of invariance by a factor of 10 relative to the gene-wide prior. For more conservative analyses, use a higher threshold (e.g., 100). For exploratory analyses, lower thresholds (e.g., 5) may be appropriate.
 
 ### 3. What does the radius threshold control?
 
-The radius threshold defines how liberally "near-zero" is interpreted. The default of 0.5 means that a grid point is considered near-zero if the expected number of substitutions under those rates is less than half a substitution across the tree. Lower values (e.g., 0.1) impose a stricter definition of invariance; higher values (e.g., 1.0) are more permissive.
+The radius threshold defines how liberally "near-zero" is interpreted. The default of 0.5 means that a grid point is considered near-zero if the total expected number of substitutions across the entire tree under those rates is less than 0.5. Lower values (e.g., 0.1) impose a stricter definition of invariance. Higher values (e.g., 1.0) are more permissive. Proximal stasis ($E[S] < X$) is generally a better predictor of biological constraint than exact stasis ($\alpha = \beta = 0$), because it accounts for low-level mutational leakage that is often present even at functionally constrained positions.
 
 ### 4. Which posterior estimation method should I use?
 
-Variational Bayes is recommended as the default. It is the fastest method and produces comparable results to MCMC for most datasets. Use Metropolis-Hastings if you need convergence diagnostics (PSRF, Neff) or want to validate results with a full MCMC approach.
+Zeroth-order Variational Bayes (VB0) is recommended as the default. It is the fastest method and produces comparable results to MCMC for most datasets. Use Metropolis-Hastings if you need convergence diagnostics (PSRF, Neff) or want to validate results with a full MCMC approach.
 
 ### 5. Can I use my FUBAR cache with B-STILL?
 
-No. B-STILL uses a different grid construction (denser around zero) and writes to separate cache and output files (`.FUBAR-inv.cache` and `.FUBAR-inv.json`). The two analyses must be run independently.
+No. B-STILL uses a different grid construction (quadratic density near zero) and writes to separate cache and output files (`.FUBAR-inv.cache` and `.FUBAR-inv.json`). The two analyses must be run independently.
 
-## References
+### 6. In an ultra-conserved gene, B-STILL reports very few significant sites despite nearly all sites being invariant. Is this correct?
 
-- Murrell, B et al. "FUBAR: A Fast, Unconstrained Bayesian AppRoximation for inferring selection." Mol. Biol. Evol. 30, 1196-1205 (2013).
+Yes. This is the expected behavior of the hierarchical prior. In genes where the gene-wide expectation of stasis approaches 1.0, invariance at any individual site is not "surprising" relative to the baseline. Individual EBFs are compressed toward 1.0, and only the most anomalously constrained sites exceed the significance threshold. B-STILL correctly de-weights invariance when it is globally expected, ensuring that the method reports sites where the evidence for constraint is genuinely above and beyond what the gene as a whole predicts.
