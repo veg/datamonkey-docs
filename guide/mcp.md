@@ -33,6 +33,26 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 
 Restart Claude Desktop. Datamonkey tools will appear in the tool list.
 
+### Gemini CLI
+
+```bash
+gemini mcp add --transport http datamonkey https://mcp.datamonkey.org/mcp
+```
+
+Or add to `~/.gemini/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "datamonkey": {
+      "httpUrl": "https://mcp.datamonkey.org/mcp"
+    }
+  }
+}
+```
+
+> Do not use underscores in the server name (use `datamonkey`, not `data_monkey`) — Gemini's policy parser will misinterpret it.
+
 ### VS Code / Cursor / Windsurf
 
 Create or edit `.vscode/mcp.json` (VS Code), `~/.cursor/mcp.json` (Cursor), or `~/.codeium/windsurf/mcp_config.json` (Windsurf):
@@ -191,16 +211,6 @@ Requires at least 2 branch groups labeled in the tree.
 ```json
 { "length_of_each_chain": 1000000, "number_of_burn_in_samples": 100000, "number_of_samples": 100, "maximum_parents_per_node": 1, "minimum_subs_per_site": 1 }
 ```
-
-## Interpreting Results
-
-| Method type | Threshold | Interpretation |
-|-------------|-----------|----------------|
-| P-value methods (FEL, MEME, SLAC, RELAX, Contrast-FEL) | p < 0.1 | Significant evidence of selection |
-| Bayesian methods (FUBAR, BGM) | Posterior > 0.9 | Strong evidence |
-| Gene-level (BUSTED) | p < 0.05 | Gene-wide episodic diversifying selection |
-| Branch-level (aBSREL) | Holm-Bonferroni corrected p < 0.05 | Episodic selection on that branch |
-| Relaxation (RELAX) | p < 0.05, K > 1 intensified, K < 1 relaxed | Change in selection intensity |
 
 ## Troubleshooting
 
