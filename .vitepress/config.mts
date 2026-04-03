@@ -61,6 +61,7 @@ export default defineConfig({
           { text: "Analyzing Data", link: "/guide/analyzing_data" },
           { text: "Data Files", link: "/guide/data_files" },
           { text: "Local Installation", link: "/guide/installation" },
+          { text: "MCP Server", link: "/guide/mcp" },
           { text: "About", link: "/guide/about" },
         ],
       },
