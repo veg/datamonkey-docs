@@ -16,6 +16,8 @@ claude mcp add datamonkey --transport http https://mcp.datamonkey.org/mcp
 
 On first use, a browser window opens for OAuth authorization. After that, tools appear as `mcp__datamonkey__spawn_analysis`, etc.
 
+> Running Claude Code on a remote / SSH box? The browser-based OAuth flow redirects to `http://localhost:<port>` on the machine running Claude Code, which your laptop's browser can't reach. Use the [Headless / Remote setup](#headless-remote-setup) flow to mint a token manually.
+
 ### Claude Desktop
 
 Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
@@ -96,6 +98,55 @@ async def main():
 
 asyncio.run(main())
 ```
+
+## Headless / Remote setup
+
+The browser-based OAuth flow used by Claude Code (and most other MCP clients) binds a callback listener to `http://localhost:<port>` on the machine running the client. If that machine is a remote / SSH host without a local browser, the authorization redirect lands on the wrong host and fails (`Safari Can't Connect to the Server`, `ERR_CONNECTION_REFUSED`, etc).
+
+The MCP server supports the standard out-of-band redirect URI (`urn:ietf:wg:oauth:2.0:oob`) for this case: instead of redirecting, `/authorize` renders the authorization code as HTML for you to copy. The recipe below uses that to mint a bearer token from a machine with a browser, then configures Claude Code on the remote host to send it via an `Authorization` header.
+
+### Mint a token
+
+Run on a machine with a browser (your laptop is fine):
+
+```bash
+ISSUER=https://mcp.datamonkey.org
+
+REG=$(curl -s -X POST $ISSUER/register -H 'Content-Type: application/json' \
+  -d '{"redirect_uris":["urn:ietf:wg:oauth:2.0:oob"],"client_name":"manual"}')
+CLIENT_ID=$(echo "$REG" | python3 -c 'import json,sys;print(json.load(sys.stdin)["client_id"])')
+CLIENT_SECRET=$(echo "$REG" | python3 -c 'import json,sys;print(json.load(sys.stdin)["client_secret"])')
+
+VERIFIER=$(openssl rand -base64 64 | tr -d '\n+/=' | head -c 64)
+CHALLENGE=$(printf %s "$VERIFIER" | openssl dgst -sha256 -binary | openssl base64 | tr -d '=\n' | tr '/+' '_-')
+
+echo "Open in browser:"
+echo "$ISSUER/authorize?response_type=code&client_id=$CLIENT_ID&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&code_challenge=$CHALLENGE&code_challenge_method=S256"
+printf "Paste the code shown on the page: "
+read CODE
+
+TOK=$(curl -s -X POST $ISSUER/token \
+  -d "grant_type=authorization_code&code=$CODE&client_id=$CLIENT_ID&client_secret=$CLIENT_SECRET&code_verifier=$VERIFIER&redirect_uri=urn:ietf:wg:oauth:2.0:oob")
+TOKEN=$(echo "$TOK" | python3 -c 'import json,sys;print(json.load(sys.stdin)["access_token"])')
+
+echo
+echo "Run on the headless box:"
+echo "  claude mcp add datamonkey --transport http $ISSUER/mcp --header \"Authorization: Bearer $TOKEN\""
+```
+
+What it does:
+
+1. Registers a one-off OAuth client (`/register`)
+2. Generates a PKCE verifier / challenge pair
+3. Prints an authorization URL — open it in your local browser; the page renders a one-time code
+4. Exchanges the pasted code for a bearer token (`/token`)
+5. Prints the exact `claude mcp add` command to run on the remote host
+
+### Notes
+
+- The authorization code is **single-use and expires in 10 minutes**. If the token exchange returns `invalid_grant`, re-run the script.
+- The bearer token's stated lifetime is 1 hour (`expires_in: 3600`). The token response also includes a `refresh_token` that you can exchange at `/token` with `grant_type=refresh_token` for a longer-lived setup, or just re-run the script.
+- The recipe is POSIX-compatible (`bash`, `zsh`, `sh`). Avoid `read -p "..." VAR` — that is bash-only and silently no-ops on zsh.
 
 ## Tools
 
@@ -221,3 +272,4 @@ Requires at least 2 branch groups labeled in the tree.
 | "Could not parse any sequences" | Only FASTA format is supported for direct upload |
 | Job stays "running" a long time | Large alignments can take minutes to hours; use `get_job_status` to monitor progress |
 | "Server not initialized" error | MCP session expired; client will re-establish automatically on the next request |
+| Browser redirects to `localhost:<port>` and fails to connect | You're running Claude Code on a remote / SSH host. See [Headless / Remote setup](#headless-remote-setup) for the manual token flow. |
