@@ -4,6 +4,16 @@
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fgNrPbOTpxE?si=uxwjTYF3Fd7pdV9D" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+## Installing with Homebrew
+
+The fastest way to get started is to install HyPhy with Homebrew
+
+```bash
+brew install hyphy
+```
+
+If you want to build a custom executable (MP or MPI), the process is described below.
+
 ## MP and MPI Versions
 
 HyPhy can be built in two main flavors:
